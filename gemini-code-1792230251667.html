@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Flipkart IMT HHD Mobile Portal - Anjaneya HL Warehouse</title>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: #121a2d;
+      --card-border: #1e2a45;
+      --fk-blue: #2874f0;
+      --fk-yellow: #ffe11b;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-purple: #8b5cf6;
+      --accent-orange: #f59e0b;
+      --text-main: #ffffff;
+      --text-muted: #a0aec0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 10px;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* HHD Header */
+    header {
+      background: linear-gradient(135deg, #1a365d 0%, var(--fk-blue) 100%);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-title span {
+      background-color: var(--fk-yellow);
+      color: #000;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .hhd-badge {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+
+    .header-sub {
+      font-size: 11px;
+      color: var(--fk-yellow);
+      font-weight: 700;
+    }
+
+    .header-meta {
+      font-size: 10px;
+      color: #cbd5e1;
+      margin-top: 2px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Quick Search Bar */
+    .search-container {
+      margin-bottom: 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      background-color: var(--card-bg);
+      border: 1px solid var(--fk-blue);
+      border-radius: 6px;
+      color: #ffffff;
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    /* Touch-Friendly Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 90px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 4px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background-color: var(--fk-blue);
+      color: #ffffff;
+      border-color: var(--fk-blue);
+    }
+
+    /* Sections */
+    .tab-content {
+      display: none;
+      width: 100%;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Process Step Cards */
+    .process-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 5px solid #94a3b8;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .process-card.w2w { border-left-color: var(--accent-red); }
+    .process-card.pst { border-left-color: var(--fk-blue); }
+    .process-card.rca { border-left-color: var(--accent-purple); }
+    .process-card.gtl { border-left-color: var(--accent-green); }
+    .process-card.ttl { border-left-color: var(--accent-orange); }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .card-badge {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-red { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+    .badge-blue { background: rgba(40, 116, 240, 0.2); color: #93c5fd; }
+    .badge-purple { background: rgba(139, 92, 246, 0.2); color: #d8b4fe; }
+    .badge-green { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .badge-yellow { background: rgba(245, 158, 11, 0.2); color: #fde047; }
+
+    .card-text {
+      font-size: 12px;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+
+    .card-arrow {
+      color: var(--fk-yellow);
+      font-weight: 900;
+    }
+
+    /* Tables for Full Forms & 5S */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    .data-table th {
+      background-color: rgba(40, 116, 240, 0.3);
+      color: var(--fk-yellow);
+      text-align: left;
+      padding: 10px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .data-table td {
+      padding: 9px 10px;
+      font-size: 11px;
+      border-bottom: 1px solid var(--card-border);
+      color: #f1f5f9;
+    }
+
+    .term-tag {
+      font-weight: 800;
+      color: var(--fk-yellow);
+    }
+
+    /* 5S Custom Cards */
+    .s5-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .s5-num {
+      background-color: var(--fk-blue);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 900;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .s5-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--fk-yellow);
+    }
+
+    .s5-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+      padding-top: 8px;
+    }
+
+    footer span {
+      color: var(--fk-yellow);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HHD Header -->
+  <header>
+    <div class="header-top">
+      <div class="brand-title">FLIPKART <span>IMT</span></div>
+      <div class="hhd-badge">📱 HHD MODE</div>
+    </div>
+    <div class="header-sub">FLIPKART IMT PROCESS FLOW</div>
+    <div class="header-meta">
+      <div>Location: <b>Anjaneya HL Warehouse</b></div>
+      <div>Created by: <b>Nilkanta</b></div>
+    </div>
+  </header>
+
+  <!-- Live Filter Bar -->
+  <div class="search-container">
+    <input type="text" id="searchInput" class="search-input" onkeyup="filterHHD()" placeholder="🔍 Search Process, Full Forms or 5S...">
+  </div>
+
+  <!-- Touch Navigation Tabs -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('process', this)">IMT Process</button>
+    <button class="tab-btn" onclick="showTab('fullforms', this)">Full Forms List</button>
+    <button class="tab-btn" onclick="showTab('fiveS', this)">5S Data</button>
+  </div>
+
+  <!-- TAB 1: IMT PROCESS FLOW -->
+  <div id="process" class="tab-content active">
+    
+    <div class="process-card w2w searchable">
+      <div class="card-head">
+        <span class="card-title">1. W2W (Wall-to-Wall)</span>
+        <span class="card-badge badge-red">Manual Audit</span>
+      </div>
+      <p class="card-text"><span class="card-arrow">↳</span> Manual physical bin audit across the entire inventory.</p>
+    </div>
+
+    <div class="process-card pst searchable">
+      <div class="card-head">
+        <span class="card-title">2. PST (Perpetual Stocktaking)</span>
+        <span class="card-badge badge-blue">System Audit</span>
+      </div>
+      <p class="card-text"><span class="card-arrow">↳</span> System-driven continuous bin audit to track live stock take .</p>
+    </div>
+
+    <div class="process-card rca searchable">
+      <div class="card-head">
+        <span class="card-title">3. RCA (Root Cause Analysis)</span>
+        <span class="card-badge badge-purple">Resolution</span>
+      </div>
+      <p class="card-text"><span class="card-arrow">↳</span> Discrepancy resolution between physical inventory and WIDs.</p>
+    </div>
+
+    <div class="process-card gtl searchable">
+      <div class="card-head">
+        <span class="card-title">4. GTL (Goods Transfer List)</span>
+        <span class="card-badge badge-green">Putaway</span>
+      </div>
+      <p class="card-text"><span class="card-arrow">↳</span> Transfer and putaway physical stock into designated correct bin locations.</p>
+    </div>
+
+    <div class="process-card ttl searchable">
+      <div class="card-head">
+        <span class="card-title">5. TTL (Task Transfer List)</span>
+        <span class="card-badge badge-yellow">Quality & Expiry</span>
+      </div>
+      <p class="card-text"><span class="card-arrow">↳</span> System task process to audit, track, and segregate damaged, expired, or near-expiry stock.</p>
+    </div>
+
+  </div>
+
+  <!-- TAB 2: FULL FORMS LIST -->
+  <div id="fullforms" class="tab-content">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Abbreviation</th>
+          <th>Full Form / Description</th>
+        </tr>
+      </thead>
+      <tbody id="fullformTable">
+        <tr class="searchable"><td class="term-tag">IMT</td><td>Inventory Management Team[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">IRT</td><td>Issue Resolution Team[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">WID</td><td>Warehouse Identifier[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">GTL</td><td>Goods Transfer List[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">TTL</td><td>Task Transfer List[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">PST</td><td>Perpetual Stocktaking[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">RCA</td><td>Root Cause Analysis[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">ATP</td><td>Available to Promise[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">FSN</td><td>Flipkart Serial Number[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">SKU</td><td>Stock Keeping Unit[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">EAN</td><td>European Article Number[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">HVC</td><td>High-Value Category / Cargo[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">LSM</td><td>Large, Small, Medium[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">PALLET</td><td>Platform for Heavy Storage / Assembly[cite: 1]</td></tr>
+        <tr class="searchable"><td class="term-tag">TROLLY</td><td>Transport Resource for Stock Movement[cite: 1]</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TAB 3: 5S DATA -->
+  <div id="fiveS" class="tab-content">
+    
+    <div class="s5-card searchable">
+      <div class="s5-num">1S</div>
+      <div>
+        <div class="s5-title">Sort (Seiri)[cite: 1]</div>
+        <div class="s5-desc">Remove unnecessary items from warehouse floor and aisle bins[cite: 1].</div>
+      </div>
+    </div>
+
+    <div class="s5-card searchable">
+      <div class="s5-num">2S</div>
+      <div>
+        <div class="s5-title">Set in Order (Seiton)[cite: 1]</div>
+        <div class="s5-desc">Organize inventory stock in designated correct WID bin locations[cite: 1].</div>
+      </div>
+    </div>
+
+    <div class="s5-card searchable">
+      <div class="s5-num">3S</div>
+      <div>
+        <div class="s5-title">Shine (Seiso)[cite: 1]</div>
+        <div class="s5-desc">Clean bins, aisles, trolleys, and keep equipment dust-free[cite: 1].</div>
+      </div>
+    </div>
+
+    <div class="s5-card searchable">
+      <div class="s5-num">4S</div>
+      <div>
+        <div class="s5-title">Standardize (Seiketsu)[cite: 1]</div>
+        <div class="s5-desc">Maintain standard IMT audit procedures across all shifts[cite: 1].</div>
+      </div>
+    </div>
+
+    <div class="s5-card searchable">
+      <div class="s5-num">5S</div>
+      <div>
+        <div class="s5-title">Sustain (Shitsuke)[cite: 1]</div>
+        <div class="s5-desc">Follow 5S habits daily for long-term operational discipline[cite: 1].</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    Flipkart Minutes IMT | <span>Anjaneya HL Warehouse</span> | Created by <span>Nilkanta</span>
+  </footer>
+
+  <script>
+    function showTab(tabId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      btn.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function filterHHD() {
+      let query = document.getElementById('searchInput').value.toLowerCase();
+      let items = document.querySelectorAll('.searchable');
+
+      items.forEach(item => {
+        let text = item.innerText.toLowerCase();
+        if (item.tagName === 'TR') {
+          item.style.display = text.includes(query) ? '' : 'none';
+        } else {
+          item.style.display = text.includes(query) ? 'flex' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
