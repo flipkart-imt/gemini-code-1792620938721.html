@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Flipkart IMT Mobile Portal - Anjaneya HL Warehouse</title>
+    <title>Flipkart IMT & IRT Mobile Portal - Anjaneya HL Warehouse</title>
     <style>
         :root {
             --fk-blue: #2874f0;
             --fk-yellow: #ffc200;
-            --bg-dark: #0b1120;
-            --card-bg: #1e293b;
-            --card-border: #334155;
-            --input-bg: #0f172a;
+            --bg-dark: #070a12;
+            --card-bg: #0f172a;
+            --card-border: #1e293b;
+            --input-bg: #020617;
             --accent-green: #10b981;
             --accent-red: #ef4444;
             --accent-purple: #8b5cf6;
@@ -36,7 +36,111 @@
             font-size: 13px;
         }
 
-        /* BRAND HEADER */
+        /* LOGIN MODAL OVERLAY */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 16px;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border: 2px solid var(--fk-blue);
+            border-radius: 16px;
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(40, 116, 240, 0.4);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 12px;
+            color: var(--fk-yellow);
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .login-badge {
+            background: var(--fk-yellow);
+            color: #000;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 900;
+        }
+
+        /* SESSION INDICATOR BAR */
+        .session-bar {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--fk-blue);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .session-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .session-item {
+            font-size: 12px;
+            font-weight: 700;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .session-item span {
+            color: var(--fk-yellow);
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .btn-switch-session {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* HEADER BAR */
         header {
             background: linear-gradient(135deg, #1e3a8a 0%, #2874f0 100%);
             border-radius: 12px;
@@ -94,7 +198,7 @@
             box-shadow: 0 0 10px var(--accent-green);
         }
 
-        /* QUICK CONNECT BAR FOR INTERNAL FLO 10.24.1.53 */
+        /* FLO CONNECT LINK BAR */
         .system-link-bar {
             background: linear-gradient(90deg, #10b981 0%, #059669 100%);
             border-radius: 8px;
@@ -153,34 +257,45 @@
             box-shadow: 0 4px 10px rgba(40, 116, 240, 0.4);
         }
 
-        /* FORM CARDS */
+        /* FORM CARD CONTAINER */
         .process-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 10px;
-            padding: 12px;
+            padding: 14px;
             margin-bottom: 12px;
         }
 
-        .form-label {
-            font-size: 10px;
-            font-weight: 800;
+        .form-title {
+            font-size: 15px;
+            font-weight: 900;
             color: var(--fk-yellow);
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--card-border);
+            padding-bottom: 6px;
+        }
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-main);
             text-transform: uppercase;
             margin-bottom: 4px;
             display: block;
         }
+
+        .req { color: var(--accent-red); }
 
         .select-field, .input-field {
             width: 100%;
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 6px;
-            padding: 10px;
+            padding: 11px;
             color: #fff;
             font-size: 13px;
             outline: none;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .select-field:focus, .input-field:focus {
@@ -190,48 +305,65 @@
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-        }
-
-        .variance-display {
-            background: #0f172a;
+        /* RADIO REMARKS BOX */
+        .radio-group {
+            background: var(--input-bg);
             border: 1px solid var(--card-border);
-            padding: 9px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 800;
-            font-size: 13px;
-            color: var(--fk-yellow);
-            margin-bottom: 8px;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
-        .btn-submit {
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #e2e8f0;
+        }
+
+        .radio-item input[type="radio"] {
+            accent-color: var(--fk-blue);
+            width: 16px;
+            height: 16px;
+        }
+
+        .btn-submit, .btn-login {
             width: 100%;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #ffffff;
             border: none;
             font-weight: 900;
-            padding: 12px;
+            padding: 13px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
 
-        /* TABLE STYLES */
+        .btn-login {
+            background: linear-gradient(135deg, #2874f0 0%, #1e3a8a 100%);
+            box-shadow: 0 4px 12px rgba(40, 116, 240, 0.4);
+        }
+
+        /* DATA DISPLAY TABLE */
         .table-header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
+            margin-top: 14px;
             margin-bottom: 6px;
         }
 
@@ -250,7 +382,7 @@
             background: rgba(40, 116, 240, 0.2);
             color: var(--fk-blue);
             border: 1px solid var(--fk-blue);
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-size: 10px;
             font-weight: 800;
@@ -261,7 +393,7 @@
             background: rgba(239, 68, 68, 0.2);
             color: var(--accent-red);
             border: 1px solid var(--accent-red);
-            padding: 5px 8px;
+            padding: 6px 10px;
             border-radius: 6px;
             font-size: 10px;
             font-weight: 800;
@@ -269,7 +401,7 @@
         }
 
         .table-wrapper {
-            max-height: 220px;
+            max-height: 240px;
             overflow-x: auto;
             overflow-y: auto;
             border: 1px solid var(--card-border);
@@ -299,19 +431,7 @@
             border-bottom: 1px solid var(--card-border);
         }
 
-        .status-badge {
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 800;
-            font-size: 10px;
-        }
-
-        .status-done { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
-        .status-pending { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
-        .status-transit { background: rgba(249, 115, 22, 0.2); color: var(--accent-orange); border: 1px solid var(--accent-orange); }
-        .status-rca { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
-        .status-irt { background: rgba(20, 184, 166, 0.2); color: var(--accent-teal); border: 1px solid var(--accent-teal); }
-
+        /* FULL FORMS & 5S STYLES */
         .grid-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -350,9 +470,38 @@
         }
 
         .footer b { color: var(--fk-yellow); }
+
+        .error-msg {
+            color: var(--accent-red);
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: none;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+
+    <!-- CASPER LOGIN MODAL -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-title">FLIPKART <span class="login-badge">CASPER LOGIN</span></div>
+                <div class="login-subtitle">Anjaneya HL Warehouse Portal</div>
+            </div>
+            
+            <div id="login-error" class="error-msg">Please enter both Casper ID and Name!</div>
+
+            <span class="form-label">Casper ID <span class="req">*</span></span>
+            <input type="text" id="login-casper" class="input-field" placeholder="ca.3972948" value="ca.3972948" oninput="autoFillNameByCasper()">
+
+            <span class="form-label">Full Name <span class="req">*</span></span>
+            <input type="text" id="login-name" class="input-field" placeholder="e.g. Nilkantha Mondal">
+
+            <button class="btn-login" onclick="performLogin()">Login Session ➔</button>
+        </div>
+    </div>
 
     <!-- BRAND HEADER -->
     <header>
@@ -365,7 +514,17 @@
         </div>
     </header>
 
-    <!-- INTERNAL FLOW CONNECT LINK (FLO 10.24.1.53) -->
+    <!-- ACTIVE SESSION BAR -->
+    <div class="session-bar">
+        <div class="session-info">
+            <div class="session-item">👤 Name: <span id="active-user-name">Nilkantha Mondal</span></div>
+            <div class="session-item">🆔 Casper ID: <span id="active-casper">ca.3972948</span></div>
+            <div class="session-item" style="font-size:10px; color:var(--accent-teal);">🔒 Owner-Only Data Mode Active</div>
+        </div>
+        <button class="btn-switch-session" onclick="openLoginModal()">Switch User 🔄</button>
+    </div>
+
+    <!-- INTERNAL FLO SYSTEM LINK -->
     <div class="system-link-bar">
         <div class="system-link-text">
             <span>🔗</span> FLO System: 10.24.1.53 (Search Inventory)
@@ -375,112 +534,160 @@
 
     <!-- TABS -->
     <div class="nav-tabs">
-        <div class="tab-btn active" onclick="switchTab('process')">IMT Process Audit</div>
+        <div class="tab-btn active" onclick="switchTab('process')">IMT Audit Portal</div>
         <div class="tab-btn" onclick="switchTab('fullforms')">Full Forms List</div>
         <div class="tab-btn" onclick="switchTab('5s')">5S Data</div>
     </div>
 
-    <!-- IMT PROCESS TAB -->
+    <!-- MAIN PROCESS TAB -->
     <div id="tab-process">
         
         <div class="process-card">
-            <span class="form-label">1. Select Audit Process</span>
+            <span class="form-label">Select Audit Form</span>
             <select id="selected-process" class="select-field" onchange="onProcessChange()">
-                <option value="IRT">1. IRT (Issue Resolve Team - Picker Bin Issue)</option>
-                <option value="W2W">2. W2W (Wall-to-Wall Audit)</option>
-                <option value="RCA">3. RCA (Root Cause Analysis - Excess Resolution)</option>
-                <option value="PST">4. PST (Perpetual Stocktaking)</option>
-                <option value="GTL">5. GTL (Goods Transfer List)</option>
-                <option value="TTL">6. TTL (Transfer Task List)</option>
+                <option value="W2W">1. W2W Bin Audit Status</option>
+                <option value="RCA">2. Excess Products RCA – 2026</option>
+                <option value="INF">3. Live INF Tracker 2026 (IRT)</option>
             </select>
 
-            <div class="grid-2">
-                <div>
-                    <span class="form-label">Casper / IRT Person ID</span>
-                    <input type="text" id="scan-casper" class="input-field" placeholder="Enter Casper ID">
+            <!-- 1. W2W BIN AUDIT FORM -->
+            <div id="form-w2w">
+                <div class="form-title">W2W Bin Audit Status</div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Auditor Name</span>
+                        <input type="text" id="w2w-auditer" class="input-field" placeholder="Auditor Name" readonly style="opacity: 0.8;">
+                    </div>
+                    <div>
+                        <span class="form-label">Casper ID</span>
+                        <input type="text" id="w2w-casper" class="input-field" placeholder="Casper ID" readonly style="opacity: 0.8;">
+                    </div>
                 </div>
-                <div>
-                    <span class="form-label">Bin Location (Not Found Bin)</span>
-                    <input type="text" id="scan-bin" class="input-field" placeholder="Scan Bin Location">
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Location <span class="req">*</span></span>
+                        <input type="text" id="w2w-location" class="input-field" placeholder="Bin Location">
+                    </div>
+                    <div>
+                        <span class="form-label">WID <span class="req">*</span></span>
+                        <input type="text" id="w2w-wid" class="input-field" placeholder="Scan WID">
+                    </div>
                 </div>
-            </div>
-
-            <div class="grid-2">
-                <div>
-                    <span class="form-label">WID Barcode</span>
-                    <input type="text" id="scan-wid" class="input-field" placeholder="Scan WID Barcode">
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Inventory Qty</span>
+                        <input type="number" id="w2w-invqty" class="input-field" placeholder="Inventory Qty">
+                    </div>
+                    <div>
+                        <span class="form-label">Physical Qty</span>
+                        <input type="number" id="w2w-phyqty" class="input-field" placeholder="Physical Qty">
+                    </div>
                 </div>
-                <div>
-                    <span class="form-label" id="lbl-phy-qty">Physical Qty</span>
-                    <input type="number" id="scan-phy-qty" class="input-field" placeholder="Physical Qty" oninput="calcVariance()">
-                </div>
-            </div>
-
-            <!-- DYNAMIC SECTION FOR IRT PICKING ISSUE WORKFLOW -->
-            <div id="irt-fields" class="grid-2">
-                <div>
-                    <span class="form-label">Alternate Found Location (From 10.24.1.53)</span>
-                    <input type="text" id="irt-alt-bin" class="input-field" placeholder="Enter Found Bin (or Short)">
-                </div>
-                <div>
-                    <span class="form-label">IRT Action & Resolution</span>
-                    <select id="irt-action-status" class="select-field">
-                        <option value="Handed to Picker">Handed Product to Picker</option>
-                        <option value="Variance Marked">Variance Marked (Shortage)</option>
-                        <option value="Item Relocated">Item Moved to Original Bin</option>
-                        <option value="Pending System Search">Pending Search on 10.24.1.53</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- DYNAMIC SECTION FOR W2W (SYSTEM QTY & VARIANCE) -->
-            <div id="w2w-fields" style="display: none;" class="grid-3">
-                <div>
-                    <span class="form-label">System Qty</span>
-                    <input type="number" id="scan-sys-qty" class="input-field" placeholder="System Qty" oninput="calcVariance()">
-                </div>
-                <div>
-                    <span class="form-label">Auto Variance</span>
-                    <div id="variance-val" class="variance-display">0</div>
-                </div>
-                <div>
-                    <span class="form-label">Audit Status</span>
-                    <select id="scan-status" class="select-field">
-                        <option value="Variance Done">Variance Done</option>
-                        <option value="Variance Pending">Variance Pending</option>
-                        <option value="In Transit">In Transit</option>
-                    </select>
+                <span class="form-label">Remarks</span>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="w2w-remarks" value="Shortage"> Shortage</label>
+                    <label class="radio-item"><input type="radio" name="w2w-remarks" value="Excess"> Excess</label>
+                    <label class="radio-item"><input type="radio" name="w2w-remarks" value="No Issue" checked> No Issue</label>
                 </div>
             </div>
 
-            <!-- DYNAMIC SECTION FOR RCA (EXCESS RESOLUTION) -->
-            <div id="rca-fields" style="display: none;" class="grid-2">
-                <div>
-                    <span class="form-label">RCA Resolution</span>
-                    <select id="rca-resolution" class="select-field">
-                        <option value="Found Excess">Found Excess (W2W Audit)</option>
-                        <option value="Shortage Match Found">Shortage Match Found (10.24.1.53)</option>
-                        <option value="Bin Mismatch Resolved">Bin Mismatch Resolved</option>
-                        <option value="Added as Excess">No Short Found -> Added as Excess</option>
-                    </select>
+            <!-- 2. EXCESS PRODUCTS RCA FORM -->
+            <div id="form-rca" style="display: none;">
+                <div class="form-title">Excess Products RCA – 2026</div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Casper ID</span>
+                        <input type="text" id="rca-casper" class="input-field" placeholder="Casper ID" readonly style="opacity: 0.8;">
+                    </div>
+                    <div>
+                        <span class="form-label">Location <span class="req">*</span></span>
+                        <input type="text" id="rca-location" class="input-field" placeholder="Location">
+                    </div>
                 </div>
-                <div>
-                    <span class="form-label">Short Bin Location (10.24.1.53)</span>
-                    <input type="text" id="rca-short-bin" class="input-field" placeholder="Enter Short Bin (or N/A)">
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">WID <span class="req">*</span></span>
+                        <input type="text" id="rca-wid" class="input-field" placeholder="Scan WID">
+                    </div>
+                    <div>
+                        <span class="form-label">Qty <span class="req">*</span></span>
+                        <input type="number" id="rca-qty" class="input-field" placeholder="Qty">
+                    </div>
+                </div>
+                <span class="form-label">Remarks</span>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="rca-remarks" value="IMT Excess" checked> IMT Excess</label>
+                    <label class="radio-item"><input type="radio" name="rca-remarks" value="Picking Excess"> Picking Excess</label>
+                    <label class="radio-item"><input type="radio" name="rca-remarks" value="Inbound Excess"> Inbound Excess</label>
+                    <label class="radio-item"><input type="radio" name="rca-remarks" value="Putting Excess"> Putting Excess</label>
+                    <label class="radio-item"><input type="radio" name="rca-remarks" value="Other"> Other</label>
                 </div>
             </div>
 
-            <span class="form-label">Audit Remarks / Picker ID</span>
-            <input type="text" id="scan-remarks" class="input-field" placeholder="Enter Remarks or Picker ID (e.g. Picker: PK-402, Item Short)">
+            <!-- 3. LIVE INF TRACKER FORM (IRT) -->
+            <div id="form-inf" style="display: none;">
+                <div class="form-title">Live INF Tracker 2026</div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">IRT Casper ID</span>
+                        <input type="text" id="inf-casper" class="input-field" placeholder="IRT Casper ID" readonly style="opacity: 0.8;">
+                    </div>
+                    <div>
+                        <span class="form-label">WID <span class="req">*</span></span>
+                        <input type="text" id="inf-wid" class="input-field" placeholder="Scan WID">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Box ID</span>
+                        <input type="text" id="inf-boxid" class="input-field" placeholder="Box ID">
+                    </div>
+                    <div>
+                        <span class="form-label">Issue Location <span class="req">*</span></span>
+                        <input type="text" id="inf-issueloc" class="input-field" placeholder="Issue Location">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Qty <span class="req">*</span></span>
+                        <input type="number" id="inf-qty" class="input-field" placeholder="Qty">
+                    </div>
+                    <div>
+                        <span class="form-label">Picker ID <span class="req">*</span></span>
+                        <input type="text" id="inf-pickerid" class="input-field" placeholder="Picker ID">
+                    </div>
+                </div>
+                <span class="form-label">Cleared From Location <span class="req">*</span></span>
+                <input type="text" id="inf-clearedloc" class="input-field" placeholder="Cleared From Location">
 
-            <button class="btn-submit" onclick="saveScanData()">💾 Save Scan Record</button>
+                <span class="form-label">Remarks <span class="req">*</span></span>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Clear From Other Location" checked> Clear From Other Location</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Transit"> Transit</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Found In Same Location"> Found In Same Location</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Found In Same Rack"> Found In Same Rack</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Product Not Found"> Product Not Found</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Variance Pending Due to Transit Status"> Variance Pending Due to Transit Status</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Variance Done"> Variance Done</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Products Not Available in Recent Putting Location"> Products Not Available in Recent Putting Location</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="EAN Issue"> EAN Issue</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Damage Product"> Damage Product</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Found In Damage Mark as INF"> Found In Damage Mark as INF</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Products Not Available in Recent Putting Mark as INF"> Products Not Available in Recent Putting Mark as INF</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Repeated WID"> Repeated WID</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="QC Done"> QC Done</label>
+                    <label class="radio-item"><input type="radio" name="inf-remarks" value="Virtual Location"> Virtual Location</label>
+                </div>
+            </div>
 
-            <!-- LIVE DATA TABLE -->
+            <button class="btn-submit" onclick="submitCurrentForm()">Submit Record</button>
+
+            <!-- LIVE OWNER-ONLY SCANNED TABLE -->
             <div class="table-header-bar">
-                <span class="table-title">📊 Live Daily Scans (<span id="total-count">0</span>)</span>
+                <span class="table-title">📊 My Logged Entries (<span id="total-count">0</span>)</span>
                 <div class="action-btns">
-                    <button class="btn-export" onclick="exportDataCSV()">📥 Export CSV</button>
-                    <button class="btn-clear" onclick="clearData()">Clear All</button>
+                    <button class="btn-export" onclick="exportDataCSV()">📥 Export My CSV</button>
+                    <button class="btn-clear" onclick="clearData()">Clear My Records</button>
                 </div>
             </div>
 
@@ -489,14 +696,12 @@
                     <thead>
                         <tr>
                             <th>Time</th>
-                            <th>Process</th>
-                            <th>Casper / IRT ID</th>
-                            <th>Bin Location</th>
-                            <th>WID</th>
-                            <th>Phy Qty</th>
-                            <th>Sys Qty / Alt Bin</th>
-                            <th>Variance</th>
-                            <th>Status / IRT Resolution</th>
+                            <th>Form Type</th>
+                            <th>Casper / Auditor</th>
+                            <th>Location</th>
+                            <th>WID / Box</th>
+                            <th>Qty / Inv</th>
+                            <th>Details / Picker</th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
@@ -507,16 +712,16 @@
 
     </div>
 
-    <!-- FULL FORMS TAB (UPDATED FROM YOUR BOARD IMAGE) -->
+    <!-- FULL FORMS TAB -->
     <div id="tab-fullforms" style="display: none;">
         <div class="grid-container">
             <div class="info-card">
                 <div class="info-badge" style="background:#14b8a6; color:#fff;">IMT</div>
-                <div><div class="info-title">INVENTORY Management team</div><div class="info-sub">Core warehouse inventory oversight team</div></div>
+                <div><div class="info-title">Inventory Management Team</div><div class="info-sub">Core warehouse inventory oversight team</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#10b981; color:#fff;">IRT</div>
-                <div><div class="info-title">Issue resolve team</div><div class="info-sub">Resolves picking & missing bin discrepancies</div></div>
+                <div><div class="info-title">Issue Resolve Team</div><div class="info-sub">Resolves picking & missing bin discrepancies</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#e2e8f0; color:#000;">WID</div>
@@ -540,7 +745,7 @@
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#3b82f6; color:#fff;">ATP</div>
-                <div><div class="info-title">Available to Promise</div><div class="info-sub">Inventory stock ready for order picking</div></div>
+                <div><div class="info-title">Available To Promise</div><div class="info-sub">Inventory stock ready for order picking</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#ec4899; color:#fff;">FSN</div>
@@ -560,15 +765,15 @@
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#84cc16; color:#000;">LSM</div>
-                <div><div class="info-title">LARGE SMALL MEDIUME</div><div class="info-sub">Item physical size classification</div></div>
+                <div><div class="info-title">Large Small Medium</div><div class="info-sub">Item physical size classification</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#a855f7; color:#fff;">PALLET</div>
-                <div><div class="info-title">Platform for Assembly...</div><div class="info-sub">Wooden / plastic wooden pallet structure</div></div>
+                <div><div class="info-title">Platform For Assembly</div><div class="info-sub">Wooden / plastic wooden pallet structure</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#64748b; color:#fff;">TROLLY</div>
-                <div><div class="info-title">Transport Resource for...</div><div class="info-sub">Mobile cart used for picking & movement</div></div>
+                <div><div class="info-title">Transport Resource For</div><div class="info-sub">Mobile cart used for picking & movement</div></div>
             </div>
         </div>
     </div>
@@ -582,19 +787,17 @@
             </div>
             <div class="info-card" style="border-left: 4px solid #2874f0;">
                 <div class="info-badge" style="background:#2874f0; color:#fff;">5S (2)</div>
-                <div><div class="info-title">Set in Order</div><div class="info-sub">Organize WIDs logically for scanning</div></div>
+                <div><div class="info-title">Set In Order</div><div class="info-sub">Organize WIDs logically for scanning</div></div>
             </div>
             <div class="info-card" style="border-left: 4px solid #8b5cf6;">
                 <div class="info-badge" style="background:#8b5cf6; color:#fff;">5S (3)</div>
                 <div><div class="info-title">Shine</div><div class="info-sub">Clean bins and scanning zones daily</div></div>
             </div>
             <div class="info-card" style="border-left: 4px solid #10b981;">
-                <div class="info-badge" style="background:#10b981; color:#fff;">5S (4)</div>
-                <div><div class="info-title">Standardize</div><div class="info-sub">Maintain standard IMT auditing</div></div>
+                <div class="info-badge" style="background:#10b981; color:#fff;">Standardize</div><div class="info-sub">Maintain standard IMT auditing</div></div>
             </div>
             <div class="info-card" style="border-left: 4px solid #f97316;">
-                <div class="info-badge" style="background:#f97316; color:#fff;">5S (5)</div>
-                <div><div class="info-title">Sustain</div><div class="info-sub">Maintain daily warehouse disciplines</div></div>
+                <div class="info-badge" style="background:#f97316; color:#fff;">Sustain</div><div class="info-sub">Maintain daily warehouse disciplines</div></div>
             </div>
         </div>
     </div>
@@ -605,171 +808,263 @@
     </div>
 
     <script>
+        let currentCasper = 'ca.3972948';
+        let currentName = 'Nilkantha Mondal';
+
         document.addEventListener("DOMContentLoaded", () => {
-            renderTable();
-            const savedCasper = localStorage.getItem("last_casper_id");
-            if (savedCasper) document.getElementById("scan-casper").value = savedCasper;
-            onProcessChange();
+            const savedCasper = localStorage.getItem("active_casper_id");
+            const savedName = localStorage.getItem("active_user_name");
+
+            if (savedCasper && savedName) {
+                currentCasper = savedCasper;
+                currentName = savedName;
+                applySession();
+                closeLoginModal();
+            } else {
+                openLoginModal();
+            }
         });
 
-        function onProcessChange() {
-            const proc = document.getElementById("selected-process").value;
-            const irtBox = document.getElementById("irt-fields");
-            const w2wBox = document.getElementById("w2w-fields");
-            const rcaBox = document.getElementById("rca-fields");
-
-            irtBox.style.display = (proc === "IRT") ? "grid" : "none";
-            w2wBox.style.display = (proc === "W2W") ? "grid" : "none";
-            rcaBox.style.display = (proc === "RCA") ? "grid" : "none";
+        function getCasperNameMap() {
+            return JSON.parse(localStorage.getItem("casper_name_mappings")) || {
+                "ca.3972948": "Nilkantha Mondal"
+            };
         }
 
-        function calcVariance() {
-            const phy = parseFloat(document.getElementById("scan-phy-qty").value) || 0;
-            const sys = parseFloat(document.getElementById("scan-sys-qty").value) || 0;
-            const diff = phy - sys;
+        function autoFillNameByCasper() {
+            const casperInput = document.getElementById("login-casper").value.trim().toLowerCase();
+            const mappings = getCasperNameMap();
 
-            const vElem = document.getElementById("variance-val");
-            vElem.innerText = (diff > 0 ? "+" : "") + diff;
-            vElem.style.color = (diff === 0) ? "#10b981" : "#ef4444";
-
-            const statusSelect = document.getElementById("scan-status");
-            if (diff === 0) {
-                statusSelect.value = "Variance Done";
-            } else {
-                statusSelect.value = "Variance Pending";
+            if (mappings[casperInput]) {
+                document.getElementById("login-name").value = mappings[casperInput];
             }
         }
 
-        function saveScanData() {
-            const proc = document.getElementById("selected-process").value;
-            const casper = document.getElementById("scan-casper").value.trim();
-            const bin = document.getElementById("scan-bin").value.trim();
-            const wid = document.getElementById("scan-wid").value.trim();
-            const phyQty = document.getElementById("scan-phy-qty").value.trim() || "0";
+        function openLoginModal() {
+            document.getElementById("login-casper").value = currentCasper;
+            autoFillNameByCasper();
+            if (!document.getElementById("login-name").value) {
+                document.getElementById("login-name").value = currentName;
+            }
+            document.getElementById("login-modal").style.display = "flex";
+            document.getElementById("login-error").style.display = "none";
+        }
 
-            if (!casper || !bin || !wid) {
-                alert("Please fill Casper / IRT ID, Bin Location, and WID Barcode!");
+        function closeLoginModal() {
+            document.getElementById("login-modal").style.display = "none";
+        }
+
+        function performLogin() {
+            const casperInput = document.getElementById("login-casper").value.trim().toLowerCase();
+            const nameInput = document.getElementById("login-name").value.trim();
+
+            if (!casperInput || !nameInput) {
+                document.getElementById("login-error").style.display = "block";
                 return;
             }
 
-            localStorage.setItem("last_casper_id", casper);
+            currentCasper = casperInput;
+            currentName = nameInput;
 
-            let sysQty = "N/A";
-            let variance = "N/A";
-            let status = "Completed";
-            let remarks = document.getElementById("scan-remarks").value.trim() || "N/A";
+            // Save active session
+            localStorage.setItem("active_casper_id", currentCasper);
+            localStorage.setItem("active_user_name", currentName);
 
-            if (proc === "IRT") {
-                const altBin = document.getElementById("irt-alt-bin").value.trim() || "Short";
-                status = `IRT: ${document.getElementById("irt-action-status").value}`;
-                sysQty = `Alt Bin: ${altBin}`;
-            } else if (proc === "W2W") {
-                sysQty = document.getElementById("scan-sys-qty").value.trim() || "0";
-                variance = (parseFloat(phyQty) || 0) - (parseFloat(sysQty) || 0);
-                status = document.getElementById("scan-status").value;
+            // Update auto-fill mapping dictionary
+            const mappings = getCasperNameMap();
+            mappings[currentCasper] = currentName;
+            localStorage.setItem("casper_name_mappings", JSON.stringify(mappings));
+
+            applySession();
+            closeLoginModal();
+        }
+
+        function applySession() {
+            document.getElementById("active-casper").innerText = currentCasper;
+            document.getElementById("active-user-name").innerText = currentName;
+
+            // Auto-fill Auditor Name and Casper ID across forms
+            document.getElementById("w2w-auditer").value = currentName;
+            document.getElementById("w2w-casper").value = currentCasper;
+            document.getElementById("rca-casper").value = currentCasper;
+            document.getElementById("inf-casper").value = currentCasper;
+
+            // Load strictly THIS user's data
+            renderTable();
+        }
+
+        function getUserStorageKey() {
+            return `audit_entries_${currentCasper.replace(/[^a-zA-Z0-9]/g, "_")}`;
+        }
+
+        function onProcessChange() {
+            const proc = document.getElementById("selected-process").value;
+            document.getElementById("form-w2w").style.display = (proc === "W2W") ? "block" : "none";
+            document.getElementById("form-rca").style.display = (proc === "RCA") ? "block" : "none";
+            document.getElementById("form-inf").style.display = (proc === "INF") ? "block" : "none";
+        }
+
+        function getSelectedRadio(name) {
+            const radios = document.getElementsByName(name);
+            for (let r of radios) {
+                if (r.checked) return r.value;
+            }
+            return "N/A";
+        }
+
+        function submitCurrentForm() {
+            const proc = document.getElementById("selected-process").value;
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            let record = {};
+
+            if (proc === "W2W") {
+                const loc = document.getElementById("w2w-location").value.trim();
+                const wid = document.getElementById("w2w-wid").value.trim();
+                const invQty = document.getElementById("w2w-invqty").value.trim() || "0";
+                const phyQty = document.getElementById("w2w-phyqty").value.trim() || "0";
+                const remarks = getSelectedRadio("w2w-remarks");
+
+                if (!loc || !wid) {
+                    alert("Please fill Location and WID!");
+                    return;
+                }
+
+                record = {
+                    time: timestamp,
+                    form: "W2W Bin Audit",
+                    casper: `${currentCasper} (${currentName})`,
+                    location: loc,
+                    wid: wid,
+                    qty: `Phy:${phyQty} / Inv:${invQty}`,
+                    details: "-",
+                    remarks: remarks
+                };
+
+                document.getElementById("w2w-location").value = "";
+                document.getElementById("w2w-wid").value = "";
+                document.getElementById("w2w-invqty").value = "";
+                document.getElementById("w2w-phyqty").value = "";
+                document.getElementById("w2w-location").focus();
+
             } else if (proc === "RCA") {
-                const res = document.getElementById("rca-resolution").value;
-                const shortBin = document.getElementById("rca-short-bin").value.trim() || "N/A";
-                status = `RCA: ${res}`;
-                if (shortBin !== "N/A") remarks = `Short Bin: ${shortBin} | ${remarks}`;
+                const loc = document.getElementById("rca-location").value.trim();
+                const wid = document.getElementById("rca-wid").value.trim();
+                const qty = document.getElementById("rca-qty").value.trim() || "0";
+                const remarks = getSelectedRadio("rca-remarks");
+
+                if (!loc || !wid || !qty) {
+                    alert("Please fill Location, WID, and Qty!");
+                    return;
+                }
+
+                record = {
+                    time: timestamp,
+                    form: "Excess RCA",
+                    casper: `${currentCasper} (${currentName})`,
+                    location: loc,
+                    wid: wid,
+                    qty: qty,
+                    details: "-",
+                    remarks: remarks
+                };
+
+                document.getElementById("rca-location").value = "";
+                document.getElementById("rca-wid").value = "";
+                document.getElementById("rca-qty").value = "";
+                document.getElementById("rca-location").focus();
+
+            } else if (proc === "INF") {
+                const wid = document.getElementById("inf-wid").value.trim();
+                const boxId = document.getElementById("inf-boxid").value.trim() || "N/A";
+                const issueLoc = document.getElementById("inf-issueloc").value.trim();
+                const qty = document.getElementById("inf-qty").value.trim() || "0";
+                const pickerId = document.getElementById("inf-pickerid").value.trim() || "N/A";
+                const clearedLoc = document.getElementById("inf-clearedloc").value.trim() || "N/A";
+                const remarks = getSelectedRadio("inf-remarks");
+
+                if (!wid || !issueLoc || !qty) {
+                    alert("Please fill WID, Issue Location, and Qty!");
+                    return;
+                }
+
+                record = {
+                    time: timestamp,
+                    form: "Live INF (IRT)",
+                    casper: `${currentCasper} (${currentName})`,
+                    location: issueLoc,
+                    wid: `${wid} (Box:${boxId})`,
+                    qty: qty,
+                    details: `Picker:${pickerId} | ClearedFrom:${clearedLoc}`,
+                    remarks: remarks
+                };
+
+                document.getElementById("inf-wid").value = "";
+                document.getElementById("inf-boxid").value = "";
+                document.getElementById("inf-issueloc").value = "";
+                document.getElementById("inf-qty").value = "";
+                document.getElementById("inf-pickerid").value = "";
+                document.getElementById("inf-clearedloc").value = "";
+                document.getElementById("inf-issueloc").focus();
             }
 
-            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const record = { 
-                time: timestamp, 
-                proc: proc, 
-                casper: casper, 
-                bin: bin, 
-                wid: wid, 
-                phyQty: phyQty, 
-                sysQty: sysQty, 
-                variance: variance, 
-                status: status, 
-                remarks: remarks 
-            };
-
-            let records = JSON.parse(localStorage.getItem("all_scan_data")) || [];
+            const storageKey = getUserStorageKey();
+            let records = JSON.parse(localStorage.getItem(storageKey)) || [];
             records.unshift(record);
-            localStorage.setItem("all_scan_data", JSON.stringify(records));
-
-            // Clear inputs for next rapid scan
-            document.getElementById("scan-bin").value = "";
-            document.getElementById("scan-wid").value = "";
-            document.getElementById("scan-phy-qty").value = "";
-            document.getElementById("scan-sys-qty").value = "";
-            document.getElementById("irt-alt-bin").value = "";
-            document.getElementById("rca-short-bin").value = "";
-            document.getElementById("scan-remarks").value = "";
-            document.getElementById("variance-val").innerText = "0";
-            document.getElementById("variance-val").style.color = "var(--fk-yellow)";
-            document.getElementById("scan-bin").focus();
+            localStorage.setItem(storageKey, JSON.stringify(records));
 
             renderTable();
         }
 
         function renderTable() {
-            const records = JSON.parse(localStorage.getItem("all_scan_data")) || [];
+            const storageKey = getUserStorageKey();
+            const records = JSON.parse(localStorage.getItem(storageKey)) || [];
             const tbody = document.getElementById("scan-table-body");
             document.getElementById("total-count").innerText = records.length;
 
             if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; color: var(--text-muted);">No scans recorded today yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--text-muted); padding:16px;">No entries recorded yet for <b>${currentName}</b> (${currentCasper}).</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = records.map(r => {
-                let statusClass = "status-done";
-                if (r.status === "Variance Pending") statusClass = "status-pending";
-                if (r.status === "In Transit") statusClass = "status-transit";
-                if (r.status.includes("RCA")) statusClass = "status-rca";
-                if (r.status.includes("IRT")) statusClass = "status-irt";
-
-                let varDisplay = r.variance;
-                if (r.variance !== "N/A") {
-                    const numVar = parseFloat(r.variance);
-                    varDisplay = `<b style="color:${numVar === 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">${numVar > 0 ? '+' : ''}${numVar}</b>`;
-                }
-
-                return `
-                    <tr>
-                        <td>${r.time}</td>
-                        <td><b style="color:var(--fk-yellow);">${r.proc}</b></td>
-                        <td><b>${r.casper || 'N/A'}</b></td>
-                        <td>${r.bin || 'N/A'}</td>
-                        <td>${r.wid || 'N/A'}</td>
-                        <td><b>${r.phyQty || '0'}</b></td>
-                        <td>${r.sysQty || 'N/A'}</td>
-                        <td>${varDisplay}</td>
-                        <td><span class="status-badge ${statusClass}">${r.status}</span></td>
-                        <td>${r.remarks || 'N/A'}</td>
-                    </tr>
-                `;
-            }).join("");
+            tbody.innerHTML = records.map(r => `
+                <tr>
+                    <td>${r.time}</td>
+                    <td><b style="color:var(--fk-yellow);">${r.form}</b></td>
+                    <td><b>${r.casper}</b></td>
+                    <td>${r.location}</td>
+                    <td>${r.wid}</td>
+                    <td><b>${r.qty}</b></td>
+                    <td>${r.details}</td>
+                    <td><span style="color:var(--accent-teal); font-weight:700;">${r.remarks}</span></td>
+                </tr>
+            `).join("");
         }
 
         function clearData() {
-            if (confirm("Are you sure you want to clear all scanned records for today?")) {
-                localStorage.removeItem("all_scan_data");
+            if (confirm(`Are you sure you want to clear records ONLY for ${currentName} (${currentCasper})?`)) {
+                const storageKey = getUserStorageKey();
+                localStorage.removeItem(storageKey);
                 renderTable();
             }
         }
 
         function exportDataCSV() {
-            const records = JSON.parse(localStorage.getItem("all_scan_data")) || [];
+            const storageKey = getUserStorageKey();
+            const records = JSON.parse(localStorage.getItem(storageKey)) || [];
             if (records.length === 0) {
-                alert("No scan data available to export.");
+                alert(`No data available to export for ${currentName} (${currentCasper}).`);
                 return;
             }
 
-            let csvContent = "data:text/csv;charset=utf-8,Time,Process,Casper ID,Bin Location,WID,Physical Qty,System Qty / Alt Bin,Variance,Status/Action,Remarks\n";
+            let csvContent = "data:text/csv;charset=utf-8,Time,Form Type,Casper / Auditor,Location,WID / Box,Qty,Details / Picker,Remarks\n";
             records.forEach(r => {
-                csvContent += `${r.time},${r.proc},${r.casper},${r.bin},${r.wid},${r.phyQty},"${r.sysQty}",${r.variance},"${r.status}","${r.remarks}"\n`;
+                csvContent += `${r.time},${r.form},"${r.casper}","${r.location}","${r.wid}","${r.qty}","${r.details}","${r.remarks}"\n`;
             });
 
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Flipkart_Audit_Data_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `Flipkart_Audit_${currentCasper}_${currentName.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
