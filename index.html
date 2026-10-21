@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Flipkart IMT & IRT Mobile Portal - Anjaneya HL Warehouse</title>
+    <!-- HTML5 QRCODE SCANNER LIBRARY -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         :root {
             --fk-blue: #2874f0;
@@ -16,7 +18,7 @@
             --accent-red: #ef4444;
             --accent-purple: #8b5cf6;
             --accent-orange: #f97316;
-            --accent-teal: #14b8a6;
+            --accent-cyan: #06b6d4;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -34,121 +36,126 @@
             color: var(--text-main);
             padding: 10px;
             font-size: 13px;
+            padding-bottom: 30px;
         }
 
-        /* LOGIN MODAL OVERLAY */
+        /* MODAL OVERLAY */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(2, 6, 23, 0.96);
-            backdrop-filter: blur(12px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: rgba(3, 7, 18, 0.95);
+            backdrop-filter: blur(8px);
             z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 16px;
         }
 
         .login-card {
-            background: var(--card-bg);
+            background: #0f172a;
             border: 2px solid var(--fk-blue);
             border-radius: 16px;
-            padding: 24px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 10px 35px rgba(40, 116, 240, 0.45);
-            position: relative;
-        }
-
-        .login-header {
+            padding: 24px 20px;
+            box-shadow: 0 0 35px rgba(40, 116, 240, 0.35);
             text-align: center;
-            margin-bottom: 20px;
         }
 
         .login-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 900;
-            color: #ffffff;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            margin-bottom: 4px;
         }
 
         .login-subtitle {
-            font-size: 12px;
-            color: var(--fk-yellow);
+            font-size: 11px;
             font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .login-badge {
-            background: var(--fk-yellow);
-            color: #000;
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 900;
-        }
-
-        .login-author-tag {
-            text-align: center;
-            font-size: 11px;
             color: var(--fk-yellow);
-            margin-top: 14px;
-            padding-top: 10px;
-            border-top: 1px dashed var(--card-border);
-            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* SESSION INDICATOR BAR */
+        .login-form-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1e40af 0%, #2874f0 100%);
+            color: #ffffff;
+            border: none;
+            font-weight: 900;
+            padding: 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(40, 116, 240, 0.4);
+        }
+
+        .login-footer-credits {
+            margin-top: 18px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 700;
+            border-top: 1px dashed var(--card-border);
+            padding-top: 12px;
+        }
+
+        .login-footer-credits b { color: var(--fk-yellow); }
+
+        /* SESSION USER BAR */
         .session-bar {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             border: 1px solid var(--fk-blue);
-            border-radius: 10px;
-            padding: 10px 14px;
+            border-radius: 8px;
+            padding: 8px 12px;
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(40, 116, 240, 0.2);
         }
 
         .session-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .session-item {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #e2e8f0;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
-        .session-item span {
+        .user-name-glow {
             color: var(--fk-yellow);
-            font-family: monospace;
-            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.3px;
+            text-shadow: 0 0 8px rgba(255, 194, 0, 0.4);
         }
 
-        .btn-switch-session {
+        .btn-switch-user {
             background: rgba(239, 68, 68, 0.2);
             color: var(--accent-red);
             border: 1px solid var(--accent-red);
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-radius: 6px;
             font-size: 10px;
             font-weight: 800;
             cursor: pointer;
-            white-space: nowrap;
         }
 
         /* HEADER BAR */
@@ -244,21 +251,25 @@
         /* NAVIGATION TABS */
         .nav-tabs {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             margin-bottom: 12px;
+            overflow-x: auto;
+            padding-bottom: 2px;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 10px 4px;
+            min-width: 85px;
+            padding: 9px 6px;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text-muted);
             font-weight: 700;
-            font-size: 11px;
+            font-size: 10px;
             border-radius: 8px;
             cursor: pointer;
             text-align: center;
+            white-space: nowrap;
         }
 
         .tab-btn.active {
@@ -266,6 +277,35 @@
             color: #fff;
             border-color: var(--fk-blue);
             box-shadow: 0 4px 10px rgba(40, 116, 240, 0.4);
+        }
+
+        /* KPI SUMMARY CARDS */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .kpi-num {
+            font-size: 15px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .kpi-sub {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
         /* FORM CARD CONTAINER */
@@ -319,6 +359,65 @@
             gap: 10px;
         }
 
+        /* CAMERA SCANNER AREA */
+        .btn-camera-scan {
+            width: 100%;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: #fff;
+            border: none;
+            font-weight: 900;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        #camera-reader {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            display: none;
+            border: 2px solid var(--accent-cyan);
+        }
+
+        /* VARIANCE DISPLAY BOX */
+        .variance-banner {
+            background: #020617;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .variance-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .variance-badge {
+            font-size: 12px;
+            font-weight: 900;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #fff;
+            background: #334155;
+        }
+
+        .variance-badge.excess { background: rgba(16, 185, 129, 0.25); border: 1px solid var(--accent-green); color: var(--accent-green); }
+        .variance-badge.short { background: rgba(239, 68, 68, 0.25); border: 1px solid var(--accent-red); color: var(--accent-red); }
+        .variance-badge.balanced { background: rgba(40, 116, 240, 0.25); border: 1px solid var(--fk-blue); color: #60a5fa; }
+
         /* RADIO REMARKS BOX */
         .radio-group {
             background: var(--input-bg);
@@ -349,7 +448,7 @@
             height: 16px;
         }
 
-        .btn-submit, .btn-login {
+        .btn-submit {
             width: 100%;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #ffffff;
@@ -364,18 +463,15 @@
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
 
-        .btn-login {
-            background: linear-gradient(135deg, #2874f0 0%, #1e3a8a 100%);
-            box-shadow: 0 4px 12px rgba(40, 116, 240, 0.4);
-        }
-
-        /* DATA DISPLAY TABLE */
+        /* DATA DISPLAY TABLE & TOOLBAR */
         .table-header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 14px;
             margin-bottom: 6px;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .table-title {
@@ -387,23 +483,13 @@
         .action-btns {
             display: flex;
             gap: 6px;
+            flex-wrap: wrap;
         }
 
         .btn-export {
             background: rgba(40, 116, 240, 0.2);
             color: var(--fk-blue);
             border: 1px solid var(--fk-blue);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 800;
-            cursor: pointer;
-        }
-
-        .btn-clear {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
             padding: 6px 10px;
             border-radius: 6px;
             font-size: 10px;
@@ -411,19 +497,30 @@
             cursor: pointer;
         }
 
-        .btn-row-del {
-            background: rgba(239, 68, 68, 0.25);
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
-            border-radius: 4px;
-            padding: 2px 6px;
+        .btn-master-export {
+            background: rgba(255, 194, 0, 0.2);
+            color: var(--fk-yellow);
+            border: 1px solid var(--fk-yellow);
+            padding: 6px 10px;
+            border-radius: 6px;
             font-size: 10px;
-            font-weight: bold;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-tool {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c084fc;
+            border: 1px solid #8b5cf6;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
             cursor: pointer;
         }
 
         .table-wrapper {
-            max-height: 260px;
+            max-height: 240px;
             overflow-x: auto;
             overflow-y: auto;
             border: 1px solid var(--card-border);
@@ -453,7 +550,74 @@
             border-bottom: 1px solid var(--card-border);
         }
 
-        /* FULL FORMS & GUIDELINES STYLES */
+        /* VIBRANT CARD STYLES FOR RULES & GUIDELINES */
+        .rules-card-vibrant {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .rules-card-vibrant.work-rules {
+            border-left: 5px solid var(--fk-yellow);
+            background: linear-gradient(135deg, #172554 0%, #0f172a 100%);
+        }
+
+        .rules-card-vibrant.guidelines-5s {
+            border-left: 5px solid var(--accent-purple);
+            background: linear-gradient(135deg, #2e1065 0%, #0f172a 100%);
+        }
+
+        .rules-card-vibrant.posh-rules-red {
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-left: 5px solid var(--accent-red);
+            background: linear-gradient(135deg, #450a0a 0%, #0f172a 100%);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.25);
+        }
+
+        .rules-title-vibrant {
+            font-size: 14px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 6px;
+        }
+
+        .work-rules .rules-title-vibrant { color: var(--fk-yellow); }
+        .guidelines-5s .rules-title-vibrant { color: #c084fc; }
+        .posh-rules-red .rules-title-vibrant { color: #fca5a5; text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+
+        .rules-list-vibrant {
+            list-style-type: none;
+            padding: 0;
+            color: #f1f5f9;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .rules-list-vibrant li {
+            margin-bottom: 8px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .rules-list-vibrant li::before {
+            content: "➔";
+            position: absolute;
+            left: 0;
+            color: var(--fk-yellow);
+            font-weight: bold;
+        }
+
+        .posh-rules-red .rules-list-vibrant li::before { color: var(--accent-red); }
+        .guidelines-5s .rules-list-vibrant li::before { color: #c084fc; }
+
+        /* GRID LIST STYLES */
         .grid-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -464,10 +628,10 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
-            padding: 12px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .info-badge {
@@ -475,82 +639,12 @@
             font-size: 11px;
             padding: 6px 10px;
             border-radius: 6px;
-            min-width: 70px;
+            min-width: 65px;
             text-align: center;
         }
 
-        .info-title { font-size: 13px; font-weight: 800; color: #fff; }
-        .info-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-        /* GUIDELINES STYLES */
-        .section-box {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-
-        .section-header {
-            font-size: 14px;
-            font-weight: 900;
-            color: var(--fk-yellow);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-            border-bottom: 1px dashed var(--card-border);
-            padding-bottom: 6px;
-        }
-
-        .rule-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .rule-item {
-            font-size: 12px;
-            line-height: 1.4;
-            color: #e2e8f0;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            background: var(--input-bg);
-            padding: 8px 10px;
-            border-radius: 6px;
-            border-left: 3px solid var(--fk-blue);
-        }
-
-        .rule-item strong {
-            color: var(--fk-yellow);
-        }
-
-        .posh-card {
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid var(--accent-red);
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-
-        .posh-header {
-            font-size: 14px;
-            font-weight: 900;
-            color: var(--accent-red);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .posh-desc {
-            font-size: 12px;
-            color: #f1f5f9;
-            line-height: 1.5;
-            margin-bottom: 8px;
-        }
+        .info-title { font-size: 12px; font-weight: 800; color: #fff; }
+        .info-sub { font-size: 10px; color: var(--text-muted); }
 
         .footer {
             text-align: center;
@@ -562,43 +656,63 @@
         }
 
         .footer b { color: var(--fk-yellow); }
-
-        .error-msg {
-            color: var(--accent-red);
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: none;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
 
-    <!-- LOGIN MODAL -->
+    <!-- CASPER LOGIN MODAL -->
     <div id="login-modal" class="modal-overlay">
         <div class="login-card">
-            <div class="login-header">
-                <div class="login-title">FLIPKART <span class="login-badge">CASPER LOGIN</span></div>
-                <div class="login-subtitle">Anjaneya HL Warehouse Portal</div>
-            </div>
+            <div class="login-title">FLIPKART <span class="brand-badge">CASPER LOGIN</span></div>
+            <div class="login-subtitle">Anjaneya HL Warehouse Portal</div>
             
-            <div id="login-error" class="error-msg">Please enter Casper ID, Full Name & Designation!</div>
-
-            <span class="form-label">Casper ID <span class="req">*</span></span>
-            <input type="text" id="login-casper" class="input-field" placeholder="ca.3972948" value="ca.3972948" oninput="autoFillNameByCasper()">
-
-            <span class="form-label">Full Name <span class="req">*</span></span>
-            <input type="text" id="login-name" class="input-field" placeholder="e.g. Nilkantha Mondal">
-
-            <span class="form-label">Designation <span class="req">*</span></span>
-            <input type="text" id="login-designation" class="input-field" placeholder="e.g. Sr. Asst / DEO / Team Lead">
-
-            <button class="btn-login" onclick="performLogin()">Login Station ➔</button>
-
-            <div class="login-author-tag">
-                Created by <b>Nilkantha</b> | Flipkart IMT & IRT Portal
+            <div class="login-form-group">
+                <span class="form-label">CASPER ID <span class="req">*</span></span>
+                <input type="text" id="login-casper" class="input-field" placeholder="ca.3972948" oninput="onCasperInputLogin()">
             </div>
+
+            <div class="login-form-group">
+                <span class="form-label">FULL NAME <span class="req">*</span></span>
+                <input type="text" id="login-name" class="input-field" placeholder="Enter Full Name">
+            </div>
+
+            <button class="login-btn" onclick="performLogin()">LOGIN STATION ➔</button>
+
+            <div class="login-footer-credits">
+                Created by <b>Nilkantha</b> | Flipkart IMT Portal
+            </div>
+        </div>
+    </div>
+
+    <!-- OWNER PASSCODE MODAL (RESTRICTED MASTER EXPORT) -->
+    <div id="owner-modal" class="modal-overlay" style="display: none;">
+        <div class="login-card">
+            <div class="login-title">🔒 OWNER ACCESS PIN</div>
+            <div class="login-subtitle">MASTER CSV DOWNLOAD SECURITY</div>
+            
+            <div class="login-form-group">
+                <span class="form-label">ENTER OWNER PIN <span class="req">*</span></span>
+                <input type="password" id="owner-pin" class="input-field" placeholder="••••••••">
+            </div>
+
+            <div class="grid-2">
+                <button class="login-btn" style="background:#059669;" onclick="verifyOwnerAndExport()">DOWNLOAD ALL ➔</button>
+                <button class="login-btn" style="background:#dc2626;" onclick="closeOwnerModal()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ESCALATION RED ALERT MODAL -->
+    <div id="escalation-modal" class="modal-overlay" style="display: none;">
+        <div class="login-card" style="border-color: var(--accent-red); box-shadow: 0 0 35px rgba(239, 68, 68, 0.5);">
+            <div class="login-title" style="color: var(--accent-red);">🚨 TEAM LEADER ALERT</div>
+            <div class="login-subtitle" style="color: #fca5a5;">High Variance / Shortage Logged</div>
+            
+            <p style="color: #cbd5e1; font-size: 12px; margin-bottom: 16px; line-height: 1.5;">
+                As per <b>100% Quality & 0% Mistake Policy</b>, please inform your shift Team Leader immediately regarding this physical mismatch.
+            </p>
+
+            <button class="login-btn" style="background: var(--accent-red);" onclick="closeEscalationModal()">ACKNOWLEDGE & CONTINUE ➔</button>
         </div>
     </div>
 
@@ -606,21 +720,20 @@
     <header>
         <div>
             <div class="brand-title">FLIPKART <span class="brand-badge">IMT</span></div>
-            <div class="sub-heading">ANJANEYA HL WAREHOUSE | Created by Nilkantha</div>
+            <div class="sub-heading">ANJANEYA HL WAREHOUSE</div>
         </div>
         <div class="hhd-status">
             <span class="dot"></span> HHD ONLINE
         </div>
     </header>
 
-    <!-- ACTIVE SESSION BAR -->
+    <!-- ACTIVE SESSION USER BAR -->
     <div class="session-bar">
         <div class="session-info">
-            <div class="session-item">👤 Name: <span id="active-user-name">Nilkantha Mondal</span> (<span id="active-designation" style="color:#a7f3d0;">Sr. Asst</span>)</div>
-            <div class="session-item">🆔 Casper ID: <span id="active-casper">ca.3972948</span></div>
-            <div class="session-item" style="font-size:10px; color:var(--accent-teal);">🔒 Strict Per-User Casper Data Isolation</div>
+            <span>👤 Active Auditor:</span>
+            <span id="active-user-display" class="user-name-glow">Not Logged In</span>
         </div>
-        <button class="btn-switch-session" onclick="openLoginModal()">Switch User 🔄</button>
+        <button class="btn-switch-user" onclick="logoutSession()">Switch User</button>
     </div>
 
     <!-- INTERNAL FLO SYSTEM LINK -->
@@ -634,12 +747,33 @@
     <!-- NAVIGATION TABS -->
     <div class="nav-tabs">
         <div class="tab-btn active" onclick="switchTab('process')">IMT Audit Portal</div>
-        <div class="tab-btn" onclick="switchTab('guidelines')">Rules & Guidelines</div>
+        <div class="tab-btn" onclick="switchTab('rules')">Rules & POSH</div>
         <div class="tab-btn" onclick="switchTab('fullforms')">Full Forms List</div>
+        <div class="tab-btn" onclick="switchTab('5s')">5S Data</div>
     </div>
 
     <!-- MAIN PROCESS TAB -->
     <div id="tab-process">
+
+        <!-- LIVE AUDIT KPI SUMMARY -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div id="kpi-total" class="kpi-num" style="color: var(--fk-yellow);">0</div>
+                <div class="kpi-sub">Total Audits</div>
+            </div>
+            <div class="kpi-card">
+                <div id="kpi-short" class="kpi-num" style="color: var(--accent-red);">0</div>
+                <div class="kpi-sub">Shortages</div>
+            </div>
+            <div class="kpi-card">
+                <div id="kpi-excess" class="kpi-num" style="color: var(--accent-green);">0</div>
+                <div class="kpi-sub">Excesses</div>
+            </div>
+            <div class="kpi-card">
+                <div id="kpi-accuracy" class="kpi-num" style="color: var(--accent-cyan);">100%</div>
+                <div class="kpi-sub">Accuracy</div>
+            </div>
+        </div>
         
         <div class="process-card">
             <span class="form-label">Select Audit Form</span>
@@ -649,44 +783,55 @@
                 <option value="INF">3. Live INF Tracker 2026 (IRT)</option>
             </select>
 
+            <!-- CAMERA SCANNER OVERLAY CONTAINER -->
+            <button class="btn-camera-scan" onclick="toggleCameraScanner()">📷 Tap To Open Camera Barcode Scanner</button>
+            <div id="camera-reader"></div>
+
             <!-- 1. W2W BIN AUDIT FORM -->
             <div id="form-w2w">
                 <div class="form-title">W2W Bin Audit Status</div>
                 <div class="grid-2">
                     <div>
                         <span class="form-label">Auditor Name</span>
-                        <input type="text" id="w2w-auditer" class="input-field" placeholder="Auditor Name" readonly style="opacity: 0.8;">
+                        <input type="text" id="w2w-auditer" class="input-field" placeholder="Auditor Name">
                     </div>
                     <div>
                         <span class="form-label">Casper ID</span>
-                        <input type="text" id="w2w-casper" class="input-field" placeholder="Casper ID" readonly style="opacity: 0.8;">
+                        <input type="text" id="w2w-casper" class="input-field" placeholder="Casper ID">
                     </div>
                 </div>
                 <div class="grid-2">
                     <div>
-                        <span class="form-label">Location <span class="req">*</span></span>
+                        <span class="form-label">Location</span>
                         <input type="text" id="w2w-location" class="input-field" placeholder="Bin Location">
                     </div>
                     <div>
-                        <span class="form-label">WID <span class="req">*</span></span>
+                        <span class="form-label">WID</span>
                         <input type="text" id="w2w-wid" class="input-field" placeholder="Scan WID">
                     </div>
                 </div>
                 <div class="grid-2">
                     <div>
                         <span class="form-label">Inventory Qty</span>
-                        <input type="number" id="w2w-invqty" class="input-field" placeholder="Inventory Qty">
+                        <input type="number" id="w2w-invqty" class="input-field" placeholder="Inventory Qty" oninput="calculateW2WVariance()">
                     </div>
                     <div>
                         <span class="form-label">Physical Qty</span>
-                        <input type="number" id="w2w-phyqty" class="input-field" placeholder="Physical Qty">
+                        <input type="number" id="w2w-phyqty" class="input-field" placeholder="Physical Qty" oninput="calculateW2WVariance()">
                     </div>
                 </div>
+
+                <!-- AUTO + / - QTY VARIANCE DISPLAY -->
+                <div class="variance-banner">
+                    <span class="variance-label">Calculated Difference:</span>
+                    <span id="w2w-variance-badge" class="variance-badge balanced">0 (Balanced)</span>
+                </div>
+
                 <span class="form-label">Remarks</span>
                 <div class="radio-group">
-                    <label class="radio-item"><input type="radio" name="w2w-remarks" value="Shortage"> Shortage</label>
-                    <label class="radio-item"><input type="radio" name="w2w-remarks" value="Excess"> Excess</label>
-                    <label class="radio-item"><input type="radio" name="w2w-remarks" value="No Issue" checked> No Issue</label>
+                    <label class="radio-item"><input type="radio" name="w2w-remarks" id="w2w-short" value="Shortage"> Shortage</label>
+                    <label class="radio-item"><input type="radio" name="w2w-remarks" id="w2w-excess" value="Excess"> Excess</label>
+                    <label class="radio-item"><input type="radio" name="w2w-remarks" id="w2w-noissue" value="No Issue" checked> No Issue</label>
                 </div>
             </div>
 
@@ -695,8 +840,8 @@
                 <div class="form-title">Excess Products RCA – 2026</div>
                 <div class="grid-2">
                     <div>
-                        <span class="form-label">Casper ID</span>
-                        <input type="text" id="rca-casper" class="input-field" placeholder="Casper ID" readonly style="opacity: 0.8;">
+                        <span class="form-label">Casper ID <span class="req">*</span></span>
+                        <input type="text" id="rca-casper" class="input-field" placeholder="Casper ID">
                     </div>
                     <div>
                         <span class="form-label">Location <span class="req">*</span></span>
@@ -725,11 +870,11 @@
 
             <!-- 3. LIVE INF TRACKER FORM (IRT) -->
             <div id="form-inf" style="display: none;">
-                <div class="form-title">Live INF Tracker 2026 (IRT)</div>
+                <div class="form-title">Live INF Tracker 2026</div>
                 <div class="grid-2">
                     <div>
-                        <span class="form-label">IRT Casper ID</span>
-                        <input type="text" id="inf-casper" class="input-field" placeholder="IRT Casper ID" readonly style="opacity: 0.8;">
+                        <span class="form-label">IRT Casper ID <span class="req">*</span></span>
+                        <input type="text" id="inf-casper" class="input-field" placeholder="IRT Casper ID">
                     </div>
                     <div>
                         <span class="form-label">WID <span class="req">*</span></span>
@@ -781,12 +926,14 @@
 
             <button class="btn-submit" onclick="submitCurrentForm()">Submit Record</button>
 
-            <!-- LIVE OWNER-ONLY SCANNED TABLE -->
+            <!-- LIVE SCANNED TABLE HEADER BAR -->
             <div class="table-header-bar">
-                <span class="table-title">📊 My Logged Entries (<span id="total-count">0</span>)</span>
+                <span class="table-title">📊 Entries Logged (<span id="total-count">0</span>)</span>
                 <div class="action-btns">
-                    <button class="btn-export" onclick="exportDataCSV()">📥 Export CSV</button>
-                    <button class="btn-clear" onclick="clearData()">Clear All</button>
+                    <button class="btn-tool" onclick="undoLastEntry()">↩️ Undo Last</button>
+                    <button class="btn-tool" onclick="generateShiftReport()">📋 Shift Report</button>
+                    <button class="btn-export" onclick="exportUserCSV()">📥 Export My CSV</button>
+                    <button class="btn-master-export" onclick="openOwnerModal()">🔒 Owner Master Export</button>
                 </div>
             </div>
 
@@ -794,13 +941,12 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Action</th>
                             <th>Time</th>
                             <th>Form Type</th>
                             <th>Casper / Auditor</th>
                             <th>Location</th>
                             <th>WID / Box</th>
-                            <th>Qty / Inv</th>
+                            <th>Qty / Inv (Diff)</th>
                             <th>Details / Picker</th>
                             <th>Remarks</th>
                         </tr>
@@ -813,72 +959,36 @@
     </div>
 
     <!-- NEW RULES & GUIDELINES TAB -->
-    <div id="tab-guidelines" style="display: none;">
-        <!-- WORK RULES -->
-        <div class="section-box">
-            <div class="section-header">📌 Work Rules & Audit Guidelines</div>
-            <ul class="rule-list">
-                <li class="rule-item">
-                    <span>• <strong>100% Accuracy Policy:</strong> Always scan WID barcodes physical-to-system to avoid inventory mismatches. Zero tolerance for unverified entries.</span>
-                </li>
-                <li class="rule-item">
-                    <span>• <strong>Zero Scanner Error Rule:</strong> Double-check HHD scanner readings before submitting audit records. Verify physical count matches physical stock.</span>
-                </li>
-                <li class="rule-item">
-                    <span>• <strong>FLO System Check (10.24.1.53):</strong> Perform a mandatory FLO lookup for any shortage, excess, or untraced bin item prior to flagging.</span>
-                </li>
-                <li class="rule-item">
-                    <span>• <strong>Location Validation:</strong> Ensure physical bin barcode tag matches system location ID during W2W and INF clearing processes.</span>
-                </li>
-                <li class="rule-item">
-                    <span>• <strong>Real-Time Logging:</strong> Record every IMT/IRT action immediately on the portal to keep shift counts synced.</span>
-                </li>
+    <div id="tab-rules" style="display: none;">
+        <div class="rules-card-vibrant work-rules">
+            <div class="rules-title-vibrant">🎯 Work Rules (100% Quality & 0% Mistake Policy)</div>
+            <ul class="rules-list-vibrant">
+                <li><b>100% Audit Precision:</b> Physical Qty must always be double-checked against System Qty.</li>
+                <li><b>Zero Scan Errors:</b> Verify WID barcodes on FLO System (10.24.1.53) before marking items as Missing or Short.</li>
+                <li><b>Mandatory Verification:</b> For INF / IRT resolution, verify whether stock is in transit or in recent putting locations before marking 'Product Not Found'.</li>
+                <li><b>Picker ID Accountability:</b> Always log the exact Picker ID for same-location issues to ensure accurate RCA tracking.</li>
+                <li><b>Escalation Rule:</b> Any issue call your team leader immediately.</li>
             </ul>
         </div>
 
-        <!-- 5S GUIDELINES -->
-        <div class="section-box">
-            <div class="section-header">🧹 5S Standards & Warehouse Cleanliness</div>
-            <div class="grid-container">
-                <div class="info-card" style="border-left: 4px solid #ef4444;">
-                    <div class="info-badge" style="background:#ef4444; color:#fff;">1. SORT</div>
-                    <div><div class="info-title">Sort (Seiri)</div><div class="info-sub">Clear unneeded items, damaged stock, and trash from active bin locations.</div></div>
-                </div>
-                <div class="info-card" style="border-left: 4px solid #2874f0;">
-                    <div class="info-badge" style="background:#2874f0; color:#fff;">2. SET IN ORDER</div>
-                    <div><div class="info-title">Set In Order (Seiton)</div><div class="info-sub">Organize WIDs with barcodes facing forward for swift HHD scanning.</div></div>
-                </div>
-                <div class="info-card" style="border-left: 4px solid #8b5cf6;">
-                    <div class="info-badge" style="background:#8b5cf6; color:#fff;">3. SHINE</div>
-                    <div><div class="info-title">Shine (Seiso)</div><div class="info-sub">Keep scanning devices, trolleys, and aisle shelves clean and dust-free daily.</div></div>
-                </div>
-                <div class="info-card" style="border-left: 4px solid #10b981;">
-                    <div class="info-badge" style="background:#10b981; color:#fff;">4. STANDARDIZE</div>
-                    <div><div class="info-title">Standardize (Seiketsu)</div><div class="info-sub">Maintain standard operating procedures across all shifts at Anjaneya HL.</div></div>
-                </div>
-                <div class="info-card" style="border-left: 4px solid #f97316;">
-                    <div class="info-badge" style="background:#f97316; color:#fff;">5. SUSTAIN</div>
-                    <div><div class="info-title">Sustain (Shitsuke)</div><div class="info-sub">Build daily discipline, respect team members, and follow floor rules consistently.</div></div>
-                </div>
-            </div>
+        <div class="rules-card-vibrant guidelines-5s">
+            <div class="rules-title-vibrant">✨ 5S Standard Guidelines & Descriptions</div>
+            <ul class="rules-list-vibrant">
+                <li><b>1S - Sort (Seiri):</b> Remove all unneeded items, empty boxes, and discarded labels from the bin audit zone.</li>
+                <li><b>2S - Set in Order (Seiton):</b> Organize WIDs and products neatly inside bins to allow fast, clear scanning without damage.</li>
+                <li><b>3S - Shine (Seiso):</b> Keep HHD scanner lenses, trolleys, and bin locations clean and free of dust.</li>
+                <li><b>4S - Standardize (Seiketsu):</b> Maintain consistent IMT, RCA, and IRT workflows daily following standard operating procedures.</li>
+                <li><b>5S - Sustain (Shitsuke):</b> Continuously follow warehouse disciplines, audits, and safety guidelines without supervision.</li>
+            </ul>
         </div>
 
-        <!-- POSH POLICY -->
-        <div class="posh-card">
-            <div class="posh-header">🛡️ Prevention of Sexual Harassment (POSH) Policy</div>
-            <div class="posh-desc">
-                Flipkart is committed to providing a safe, respectful, and equal-opportunity work environment free from harassment, intimidation, or discrimination for every employee and worker.
-            </div>
-            <ul class="rule-list">
-                <li class="rule-item" style="border-left-color: var(--accent-red);">
-                    <span>• <strong>Zero Tolerance:</strong> Strict zero-tolerance policy against any form of unwelcome verbal, non-verbal, or physical behavior.</span>
-                </li>
-                <li class="rule-item" style="border-left-color: var(--accent-red);">
-                    <span>• <strong>Respect at Workplace:</strong> Maintain professional dignity and workplace courtesy across all interactions at Anjaneya HL Warehouse.</span>
-                </li>
-                <li class="rule-item" style="border-left-color: var(--accent-red);">
-                    <span>• <strong>Reporting Portal:</strong> Report any concerns immediately to internal Complaints Committee (ICC) or HR representatives in confidence.</span>
-                </li>
+        <div class="rules-card-vibrant posh-rules-red">
+            <div class="rules-title-vibrant">🛡️ Workplace Respect & POSH Guidelines</div>
+            <ul class="rules-list-vibrant">
+                <li><b>Zero Tolerance Policy:</b> Flipkart maintains a strict zero-tolerance policy against any form of sexual harassment or discrimination.</li>
+                <li><b>Professional Environment:</b> Treat every team member, associate, and supervisor with dignity, equality, and respect at all times.</li>
+                <li><b>POSH Compliance:</b> Any unwelcome behavior, physical or verbal, must be immediately reported to the Internal Complaints Committee (ICC).</li>
+                <li><b>Safe Workplace:</b> Maintain a clean, respectful, and safe working atmosphere for all associates across all warehouse shifts.</li>
             </ul>
         </div>
     </div>
@@ -892,19 +1002,43 @@
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#10b981; color:#fff;">IRT</div>
-                <div><div class="info-title">Issue Resolve Team</div><div class="info-sub">Resolves picking & missing bin discrepancies</div></div>
+                <div><div class="info-title">Inventory Reconciliation Team</div><div class="info-sub">Resolves picking & missing bin discrepancies</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#e2e8f0; color:#000;">WID</div>
-                <div><div class="info-title">Warehouse Identifier</div><div class="info-sub">Unique barcode assigned to every warehouse product</div></div>
+                <div><div class="info-title">Warehouse Item ID</div><div class="info-sub">Unique barcode assigned to every warehouse product</div></div>
+            </div>
+            <div class="info-card">
+                <div class="info-badge" style="background:#3b82f6; color:#fff;">W2W</div>
+                <div><div class="info-title">Wall-to-Wall Audit</div><div class="info-sub">Complete bin-by-bin inventory physical count</div></div>
+            </div>
+            <div class="info-card">
+                <div class="info-badge" style="background:#0284c7; color:#fff;">HHD</div>
+                <div><div class="info-title">Handheld Device / Scanner</div><div class="info-sub">Mobile barcode terminal used in warehouse aisles</div></div>
+            </div>
+            <div class="info-card">
+                <div class="info-badge" style="background:#ef4444; color:#fff;">POSH</div>
+                <div><div class="info-title">Prevention of Sexual Harassment</div><div class="info-sub">Workplace dignity and respect policy</div></div>
+            </div>
+            <div class="info-card">
+                <div class="info-badge" style="background:#8b5cf6; color:#fff;">5S</div>
+                <div><div class="info-title">Sort, Set in Order, Shine, Standardize, Sustain</div><div class="info-sub">Workplace organization methodology</div></div>
+            </div>
+            <div class="info-card">
+                <div class="info-badge" style="background:#06b6d4; color:#fff;">HL</div>
+                <div><div class="info-title">HyperLocal Warehouse</div><div class="info-sub">Fast fulfillment dark-store location</div></div>
+            </div>
+            <div class="info-card">
+                <div class="info-badge" style="background:#f59e0b; color:#000;">FC</div>
+                <div><div class="info-title">Fulfillment Center</div><div class="info-sub">Primary logistics warehouse hub</div></div>
+            </div>
+            <div class="info-card">
+                <div class="info-badge" style="background:#f97316; color:#fff;">TTL</div>
+                <div><div class="info-title">Task Transfer List</div><div class="info-sub">Task assignment for stock segregation & transfer</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#10b981; color:#fff;">GTL</div>
                 <div><div class="info-title">Goods Transfer Lists</div><div class="info-sub">Transferring stock to designated bin locations</div></div>
-            </div>
-            <div class="info-card">
-                <div class="info-badge" style="background:#f97316; color:#fff;">TTL</div>
-                <div><div class="info-title">Transfer Task List</div><div class="info-sub">Task assignment for stock segregation & transfer</div></div>
             </div>
             <div class="info-card">
                 <div class="info-badge" style="background:#2874f0; color:#fff;">PST</div>
@@ -949,110 +1083,190 @@
         </div>
     </div>
 
+    <!-- 5S TAB -->
+    <div id="tab-5s" style="display: none;">
+        <div class="grid-container">
+            <div class="info-card" style="border-left: 4px solid #ef4444;">
+                <div class="info-badge" style="background:#ef4444; color:#fff;">5S (1)</div>
+                <div><div class="info-title">Sort</div><div class="info-sub">Clear unneeded items from bins</div></div>
+            </div>
+            <div class="info-card" style="border-left: 4px solid #2874f0;">
+                <div class="info-badge" style="background:#2874f0; color:#fff;">5S (2)</div>
+                <div><div class="info-title">Set In Order</div><div class="info-sub">Organize WIDs logically for scanning</div></div>
+            </div>
+            <div class="info-card" style="border-left: 4px solid #8b5cf6;">
+                <div class="info-badge" style="background:#8b5cf6; color:#fff;">5S (3)</div>
+                <div><div class="info-title">Shine</div><div class="info-sub">Clean bins and scanning zones daily</div></div>
+            </div>
+            <div class="info-card" style="border-left: 4px solid #10b981;">
+                <div class="info-badge" style="background:#10b981; color:#fff;">5S (4)</div>
+                <div><div class="info-title">Standardize</div><div class="info-sub">Maintain standard IMT auditing</div></div>
+            </div>
+            <div class="info-card" style="border-left: 4px solid #f97316;">
+                <div class="info-badge" style="background:#f97316; color:#fff;">5S (5)</div>
+                <div><div class="info-title">Sustain</div><div class="info-sub">Maintain daily warehouse disciplines</div></div>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <div class="footer">
         Flipkart Minutes IMT | <b>Anjaneya HL Warehouse</b> | Created by <b>Nilkantha</b>
     </div>
 
     <script>
-        let currentCasper = 'ca.3972948';
-        let currentName = 'Nilkantha Mondal';
-        let currentDesignation = 'Sr. Asst';
+        let currentSessionUser = null;
+        const OWNER_SECRET_PIN = "288067"; // Confidential Owner PIN for Nilkantha
+        let html5QrCode = null;
+        let isCameraScanning = false;
 
         document.addEventListener("DOMContentLoaded", () => {
-            const savedCasper = localStorage.getItem("active_casper_id");
-            const savedName = localStorage.getItem("active_user_name");
-            const savedDesig = localStorage.getItem("active_user_designation");
-
-            if (savedCasper && savedName) {
-                currentCasper = savedCasper;
-                currentName = savedName;
-                currentDesignation = savedDesig || 'Sr. Asst';
-                applySession();
-                closeLoginModal();
-            } else {
-                openLoginModal();
-            }
+            checkSession();
         });
 
-        function getCasperProfileMap() {
-            return JSON.parse(localStorage.getItem("casper_profile_mappings")) || {
-                "ca.3972948": { name: "Nilkantha Mondal", desig: "Sr. Asst" }
-            };
-        }
+        function checkSession() {
+            const sessionData = localStorage.getItem("active_casper_session");
+            if (sessionData) {
+                currentSessionUser = JSON.parse(sessionData);
+                document.getElementById("login-modal").style.display = "none";
+                document.getElementById("active-user-display").innerText = `${currentSessionUser.name} (${currentSessionUser.casper})`;
 
-        function autoFillNameByCasper() {
-            const casperInput = document.getElementById("login-casper").value.trim().toLowerCase();
-            const mappings = getCasperProfileMap();
+                document.getElementById("w2w-auditer").value = currentSessionUser.name;
+                document.getElementById("w2w-casper").value = currentSessionUser.casper;
+                document.getElementById("rca-casper").value = currentSessionUser.casper;
+                document.getElementById("inf-casper").value = currentSessionUser.casper;
 
-            if (mappings[casperInput]) {
-                document.getElementById("login-name").value = mappings[casperInput].name || "";
-                document.getElementById("login-designation").value = mappings[casperInput].desig || "";
+                renderTable();
+            } else {
+                document.getElementById("login-modal").style.display = "flex";
             }
         }
 
-        function openLoginModal() {
-            document.getElementById("login-casper").value = currentCasper;
-            autoFillNameByCasper();
-            if (!document.getElementById("login-name").value) {
-                document.getElementById("login-name").value = currentName;
+        function onCasperInputLogin() {
+            const casper = document.getElementById("login-casper").value.trim();
+            if (casper) {
+                const profiles = JSON.parse(localStorage.getItem("user_profiles_map")) || {};
+                if (profiles[casper]) {
+                    document.getElementById("login-name").value = profiles[casper].name || "";
+                }
             }
-            if (!document.getElementById("login-designation").value) {
-                document.getElementById("login-designation").value = currentDesignation;
-            }
-            document.getElementById("login-modal").style.display = "flex";
-            document.getElementById("login-error").style.display = "none";
-        }
-
-        function closeLoginModal() {
-            document.getElementById("login-modal").style.display = "none";
         }
 
         function performLogin() {
-            const casperInput = document.getElementById("login-casper").value.trim().toLowerCase();
-            const nameInput = document.getElementById("login-name").value.trim();
-            const desigInput = document.getElementById("login-designation").value.trim();
+            const casper = document.getElementById("login-casper").value.trim();
+            const name = document.getElementById("login-name").value.trim();
 
-            if (!casperInput || !nameInput || !desigInput) {
-                document.getElementById("login-error").style.display = "block";
+            if (!casper || !name) {
+                alert("Please enter both Casper ID and Full Name!");
                 return;
             }
 
-            currentCasper = casperInput;
-            currentName = nameInput;
-            currentDesignation = desigInput;
+            let profiles = JSON.parse(localStorage.getItem("user_profiles_map")) || {};
+            profiles[casper] = { casper: casper, name: name };
+            localStorage.setItem("user_profiles_map", JSON.stringify(profiles));
 
-            // Save active session
-            localStorage.setItem("active_casper_id", currentCasper);
-            localStorage.setItem("active_user_name", currentName);
-            localStorage.setItem("active_user_designation", currentDesignation);
+            currentSessionUser = { casper: casper, name: name };
+            localStorage.setItem("active_casper_session", JSON.stringify(currentSessionUser));
 
-            // Update auto-fill mapping dictionary
-            const mappings = getCasperProfileMap();
-            mappings[currentCasper] = { name: currentName, desig: currentDesignation };
-            localStorage.setItem("casper_profile_mappings", JSON.stringify(mappings));
-
-            applySession();
-            closeLoginModal();
+            checkSession();
         }
 
-        function applySession() {
-            document.getElementById("active-casper").innerText = currentCasper;
-            document.getElementById("active-user-name").innerText = currentName;
-            document.getElementById("active-designation").innerText = currentDesignation;
-
-            // Auto-fill Auditor Name and Casper ID across forms
-            document.getElementById("w2w-auditer").value = currentName;
-            document.getElementById("w2w-casper").value = currentCasper;
-            document.getElementById("rca-casper").value = currentCasper;
-            document.getElementById("inf-casper").value = currentCasper;
-
-            // Load strictly THIS user's data
-            renderTable();
+        function logoutSession() {
+            if (confirm("Are you sure you want to switch user session?")) {
+                localStorage.removeItem("active_casper_session");
+                currentSessionUser = null;
+                document.getElementById("login-casper").value = "";
+                document.getElementById("login-name").value = "";
+                document.getElementById("login-modal").style.display = "flex";
+            }
         }
 
-        function getUserStorageKey() {
-            return `audit_entries_${currentCasper.replace(/[^a-zA-Z0-9]/g, "_")}`;
+        /* CAMERA SCANNER INTEGRATION */
+        function toggleCameraScanner() {
+            const readerDiv = document.getElementById("camera-reader");
+            if (isCameraScanning) {
+                if (html5QrCode) {
+                    html5QrCode.stop().then(() => {
+                        readerDiv.style.display = "none";
+                        isCameraScanning = false;
+                    });
+                }
+            } else {
+                readerDiv.style.display = "block";
+                html5QrCode = new Html5Qrcode("camera-reader");
+                html5QrCode.start(
+                    { facingMode: "environment" },
+                    { fps: 10, qrbox: { width: 250, height: 150 } },
+                    (decodedText) => {
+                        const proc = document.getElementById("selected-process").value;
+                        if (proc === "W2W") {
+                            if (!document.getElementById("w2w-location").value) {
+                                document.getElementById("w2w-location").value = decodedText;
+                            } else {
+                                document.getElementById("w2w-wid").value = decodedText;
+                            }
+                        } else if (proc === "RCA") {
+                            if (!document.getElementById("rca-location").value) {
+                                document.getElementById("rca-location").value = decodedText;
+                            } else {
+                                document.getElementById("rca-wid").value = decodedText;
+                            }
+                        } else if (proc === "INF") {
+                            document.getElementById("inf-wid").value = decodedText;
+                        }
+                        
+                        // Play Beep Tone
+                        playBeepSound();
+                    },
+                    (errorMessage) => {}
+                ).catch(err => {
+                    alert("Unable to access camera scanner: " + err);
+                    readerDiv.style.display = "none";
+                });
+                isCameraScanning = true;
+            }
+        }
+
+        function playBeepSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                osc.type = "sine";
+                osc.frequency.setValueAtTime(880, ctx.currentTime);
+                osc.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.15);
+            } catch(e){}
+        }
+
+        function calculateW2WVariance() {
+            const invVal = document.getElementById("w2w-invqty").value;
+            const phyVal = document.getElementById("w2w-phyqty").value;
+            const badge = document.getElementById("w2w-variance-badge");
+
+            if (invVal === "" || phyVal === "") {
+                badge.className = "variance-badge balanced";
+                badge.innerText = "0 (Balanced)";
+                return;
+            }
+
+            const inv = parseInt(invVal) || 0;
+            const phy = parseInt(phyVal) || 0;
+            const diff = phy - inv;
+
+            if (diff > 0) {
+                badge.className = "variance-badge excess";
+                badge.innerText = `+${diff} (Excess)`;
+                document.getElementById("w2w-excess").checked = true;
+            } else if (diff < 0) {
+                badge.className = "variance-badge short";
+                badge.innerText = `${diff} (Shortage)`;
+                document.getElementById("w2w-short").checked = true;
+            } else {
+                badge.className = "variance-badge balanced";
+                badge.innerText = `0 (Balanced)`;
+                document.getElementById("w2w-noissue").checked = true;
+            }
         }
 
         function onProcessChange() {
@@ -1070,31 +1284,49 @@
             return "N/A";
         }
 
+        function getUserStorageKey() {
+            return currentSessionUser ? `audit_entries_${currentSessionUser.casper}` : "audit_entries_guest";
+        }
+
         function submitCurrentForm() {
+            if (!currentSessionUser) {
+                alert("Please log in first!");
+                return;
+            }
+
             const proc = document.getElementById("selected-process").value;
             const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             let record = {};
+            let isShortageOrHighVar = false;
 
             if (proc === "W2W") {
+                const auditer = document.getElementById("w2w-auditer").value.trim();
+                const casper = document.getElementById("w2w-casper").value.trim();
                 const loc = document.getElementById("w2w-location").value.trim();
                 const wid = document.getElementById("w2w-wid").value.trim();
-                const invQty = document.getElementById("w2w-invqty").value.trim() || "0";
-                const phyQty = document.getElementById("w2w-phyqty").value.trim() || "0";
+                const invQty = parseInt(document.getElementById("w2w-invqty").value) || 0;
+                const phyQty = parseInt(document.getElementById("w2w-phyqty").value) || 0;
+                const diff = phyQty - invQty;
+                const diffFormatted = diff > 0 ? `+${diff}` : `${diff}`;
                 const remarks = getSelectedRadio("w2w-remarks");
 
-                if (!loc || !wid) {
-                    alert("Please fill Location and WID!");
+                if (!casper || !loc || !wid) {
+                    alert("Please fill Casper ID, Location, and WID!");
                     return;
+                }
+
+                if (diff !== 0 || remarks === "Shortage") {
+                    isShortageOrHighVar = true;
                 }
 
                 record = {
                     id: Date.now(),
                     time: timestamp,
                     form: "W2W Bin Audit",
-                    casper: `${currentCasper} (${currentName})`,
+                    casper: `${casper} (${auditer || 'Auditor'})`,
                     location: loc,
                     wid: wid,
-                    qty: `Phy:${phyQty} / Inv:${invQty}`,
+                    qty: `Phy:${phyQty} / Inv:${invQty} (Diff:${diffFormatted})`,
                     details: "-",
                     remarks: remarks
                 };
@@ -1103,16 +1335,18 @@
                 document.getElementById("w2w-wid").value = "";
                 document.getElementById("w2w-invqty").value = "";
                 document.getElementById("w2w-phyqty").value = "";
+                calculateW2WVariance();
                 document.getElementById("w2w-location").focus();
 
             } else if (proc === "RCA") {
+                const casper = document.getElementById("rca-casper").value.trim();
                 const loc = document.getElementById("rca-location").value.trim();
                 const wid = document.getElementById("rca-wid").value.trim();
                 const qty = document.getElementById("rca-qty").value.trim() || "0";
                 const remarks = getSelectedRadio("rca-remarks");
 
-                if (!loc || !wid || !qty) {
-                    alert("Please fill Location, WID, and Qty!");
+                if (!casper || !loc || !wid || !qty) {
+                    alert("Please fill Casper ID, Location, WID, and Qty!");
                     return;
                 }
 
@@ -1120,7 +1354,7 @@
                     id: Date.now(),
                     time: timestamp,
                     form: "Excess RCA",
-                    casper: `${currentCasper} (${currentName})`,
+                    casper: casper,
                     location: loc,
                     wid: wid,
                     qty: qty,
@@ -1134,6 +1368,7 @@
                 document.getElementById("rca-location").focus();
 
             } else if (proc === "INF") {
+                const casper = document.getElementById("inf-casper").value.trim();
                 const wid = document.getElementById("inf-wid").value.trim();
                 const boxId = document.getElementById("inf-boxid").value.trim() || "N/A";
                 const issueLoc = document.getElementById("inf-issueloc").value.trim();
@@ -1142,16 +1377,20 @@
                 const clearedLoc = document.getElementById("inf-clearedloc").value.trim() || "N/A";
                 const remarks = getSelectedRadio("inf-remarks");
 
-                if (!wid || !issueLoc || !qty) {
-                    alert("Please fill WID, Issue Location, and Qty!");
+                if (!casper || !wid || !issueLoc || !qty) {
+                    alert("Please fill IRT Casper ID, WID, Issue Location, and Qty!");
                     return;
+                }
+
+                if (remarks.includes("Not Found")) {
+                    isShortageOrHighVar = true;
                 }
 
                 record = {
                     id: Date.now(),
                     time: timestamp,
                     form: "Live INF (IRT)",
-                    casper: `${currentCasper} (${currentName})`,
+                    casper: casper,
                     location: issueLoc,
                     wid: `${wid} (Box:${boxId})`,
                     qty: qty,
@@ -1168,36 +1407,50 @@
                 document.getElementById("inf-issueloc").focus();
             }
 
-            const storageKey = getUserStorageKey();
-            let records = JSON.parse(localStorage.getItem(storageKey)) || [];
+            const key = getUserStorageKey();
+            let records = JSON.parse(localStorage.getItem(key)) || [];
             records.unshift(record);
-            localStorage.setItem(storageKey, JSON.stringify(records));
+            localStorage.setItem(key, JSON.stringify(records));
 
             renderTable();
+
+            if (isShortageOrHighVar) {
+                document.getElementById("escalation-modal").style.display = "flex";
+            }
         }
 
-        function deleteSingleRow(recordId) {
-            const storageKey = getUserStorageKey();
-            let records = JSON.parse(localStorage.getItem(storageKey)) || [];
-            records = records.filter(r => r.id !== recordId);
-            localStorage.setItem(storageKey, JSON.stringify(records));
-            renderTable();
+        function closeEscalationModal() {
+            document.getElementById("escalation-modal").style.display = "none";
         }
 
         function renderTable() {
-            const storageKey = getUserStorageKey();
-            const records = JSON.parse(localStorage.getItem(storageKey)) || [];
+            const key = getUserStorageKey();
+            const records = JSON.parse(localStorage.getItem(key)) || [];
             const tbody = document.getElementById("scan-table-body");
             document.getElementById("total-count").innerText = records.length;
 
+            // KPI Calculations
+            let shortCount = 0;
+            let excessCount = 0;
+            records.forEach(r => {
+                if (r.remarks === "Shortage" || r.qty.includes("Diff:-")) shortCount++;
+                if (r.remarks === "Excess" || r.qty.includes("Diff:+")) excessCount++;
+            });
+
+            document.getElementById("kpi-total").innerText = records.length;
+            document.getElementById("kpi-short").innerText = shortCount;
+            document.getElementById("kpi-excess").innerText = excessCount;
+
+            const accuracy = records.length > 0 ? Math.round(((records.length - (shortCount + excessCount)) / records.length) * 100) : 100;
+            document.getElementById("kpi-accuracy").innerText = `${accuracy}%`;
+
             if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color: var(--text-muted); padding:16px;">No entries recorded yet for <b>${currentName}</b> (${currentCasper}).</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--text-muted);">No entries submitted for your session today.</td></tr>`;
                 return;
             }
 
             tbody.innerHTML = records.map(r => `
                 <tr>
-                    <td style="text-align:center;"><button class="btn-row-del" onclick="deleteSingleRow(${r.id})">🗑️ Delete</button></td>
                     <td>${r.time}</td>
                     <td><b style="color:var(--fk-yellow);">${r.form}</b></td>
                     <td><b>${r.casper}</b></td>
@@ -1210,45 +1463,138 @@
             `).join("");
         }
 
-        function clearData() {
-            if (confirm(`Are you sure you want to clear ALL records ONLY for ${currentName} (${currentCasper})?`)) {
-                const storageKey = getUserStorageKey();
-                localStorage.removeItem(storageKey);
+        function undoLastEntry() {
+            const key = getUserStorageKey();
+            let records = JSON.parse(localStorage.getItem(key)) || [];
+            if (records.length === 0) {
+                alert("No recent entries to undo!");
+                return;
+            }
+
+            if (confirm("Undo your last logged entry?")) {
+                records.shift();
+                localStorage.setItem(key, JSON.stringify(records));
                 renderTable();
             }
         }
 
-        function exportDataCSV() {
-            const storageKey = getUserStorageKey();
-            const records = JSON.parse(localStorage.getItem(storageKey)) || [];
+        function generateShiftReport() {
+            const key = getUserStorageKey();
+            const records = JSON.parse(localStorage.getItem(key)) || [];
             if (records.length === 0) {
-                alert(`No data available to export for ${currentName} (${currentCasper}).`);
+                alert("No audit entries available to generate report!");
                 return;
             }
 
-            let csvContent = "data:text/csv;charset=utf-8,Time,Form Type,Casper / Auditor,Location,WID / Box,Qty,Details / Picker,Remarks\n";
+            let shortCount = 0;
+            let excessCount = 0;
             records.forEach(r => {
+                if (r.remarks === "Shortage" || r.qty.includes("Diff:-")) shortCount++;
+                if (r.remarks === "Excess" || r.qty.includes("Diff:+")) excessCount++;
+            });
+
+            const accuracy = Math.round(((records.length - (shortCount + excessCount)) / records.length) * 100);
+
+            const reportText = `📋 *FLIPKART IMT SHIFT SUMMARY REPORT*\n` +
+                `🏢 *Warehouse:* Anjaneya HL\n` +
+                `👤 *Auditor:* ${currentSessionUser ? currentSessionUser.name : 'N/A'} (${currentSessionUser ? currentSessionUser.casper : ''})\n` +
+                `-----------------------------------\n` +
+                `📊 *Total Audits Logged:* ${records.length}\n` +
+                `🔴 *Shortages Identified:* ${shortCount}\n` +
+                `🟢 *Excesses Logged:* ${excessCount}\n` +
+                `🎯 *Audit Accuracy Rate:* ${accuracy}%\n` +
+                `-----------------------------------\n` +
+                `Generated via Flipkart IMT Mobile Portal`;
+
+            navigator.clipboard.writeText(reportText).then(() => {
+                alert("Shift summary copied to clipboard! You can now paste it directly into WhatsApp or Email.");
+            }).catch(() => {
+                alert(reportText);
+            });
+        }
+
+        function exportUserCSV() {
+            const key = getUserStorageKey();
+            const records = JSON.parse(localStorage.getItem(key)) || [];
+            if (records.length === 0) {
+                alert("No entries to export for your user session.");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Time,Form Type,Casper / Auditor,Location,WID / Box,Qty (Diff),Details / Picker,Remarks\n";
+            records.forEach(r => {
+                csvContent += `${r.time},${r.form},"${r.casper}","${r.location}","${r.wid}","${r.qty}","${r.details}","${r.remarks}"\n`;
+            });
+
+            const userTag = currentSessionUser ? currentSessionUser.casper : "user";
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Audit_${userTag}_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        /* OWNER EXPORT FUNCTIONALITY */
+        function openOwnerModal() {
+            document.getElementById("owner-pin").value = "";
+            document.getElementById("owner-modal").style.display = "flex";
+        }
+
+        function closeOwnerModal() {
+            document.getElementById("owner-modal").style.display = "none";
+        }
+
+        function verifyOwnerAndExport() {
+            const pin = document.getElementById("owner-pin").value.trim();
+            if (pin !== OWNER_SECRET_PIN) {
+                alert("Incorrect Owner PIN! Master export is restricted.");
+                return;
+            }
+
+            let allMasterRecords = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith("audit_entries_")) {
+                    const entries = JSON.parse(localStorage.getItem(key)) || [];
+                    allMasterRecords = allMasterRecords.concat(entries);
+                }
+            }
+
+            if (allMasterRecords.length === 0) {
+                alert("No audit records found across any user session on this device.");
+                closeOwnerModal();
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Time,Form Type,Casper / Auditor,Location,WID / Box,Qty (Diff),Details / Picker,Remarks\n";
+            allMasterRecords.forEach(r => {
                 csvContent += `${r.time},${r.form},"${r.casper}","${r.location}","${r.wid}","${r.qty}","${r.details}","${r.remarks}"\n`;
             });
 
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Flipkart_Audit_${currentCasper}_${currentName.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `Flipkart_Master_AllUsers_Nilkantha_${new Date().toISOString().slice(0,10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+
+            closeOwnerModal();
         }
 
         function switchTab(tabName) {
             document.getElementById("tab-process").style.display = tabName === 'process' ? 'block' : 'none';
-            document.getElementById("tab-guidelines").style.display = tabName === 'guidelines' ? 'block' : 'none';
+            document.getElementById("tab-rules").style.display = tabName === 'rules' ? 'block' : 'none';
             document.getElementById("tab-fullforms").style.display = tabName === 'fullforms' ? 'block' : 'none';
+            document.getElementById("tab-5s").style.display = tabName === '5s' ? 'block' : 'none';
 
             const tabs = document.querySelectorAll('.tab-btn');
             tabs[0].classList.toggle('active', tabName === 'process');
-            tabs[1].classList.toggle('active', tabName === 'guidelines');
+            tabs[1].classList.toggle('active', tabName === 'rules');
             tabs[2].classList.toggle('active', tabName === 'fullforms');
+            tabs[3].classList.toggle('active', tabName === '5s');
         }
     </script>
 </body>
