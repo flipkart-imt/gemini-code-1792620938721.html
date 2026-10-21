@@ -43,8 +43,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(2, 6, 23, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(2, 6, 23, 0.96);
+            backdrop-filter: blur(12px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -58,8 +58,9 @@
             border-radius: 16px;
             padding: 24px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(40, 116, 240, 0.4);
+            max-width: 420px;
+            box-shadow: 0 10px 35px rgba(40, 116, 240, 0.45);
+            position: relative;
         }
 
         .login-header {
@@ -91,6 +92,16 @@
             padding: 2px 8px;
             border-radius: 4px;
             font-weight: 900;
+        }
+
+        .login-author-tag {
+            text-align: center;
+            font-size: 11px;
+            color: var(--fk-yellow);
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--card-border);
+            font-weight: 800;
         }
 
         /* SESSION INDICATOR BAR */
@@ -125,7 +136,7 @@
         .session-item span {
             color: var(--fk-yellow);
             font-family: monospace;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .btn-switch-session {
@@ -239,7 +250,7 @@
 
         .tab-btn {
             flex: 1;
-            padding: 10px;
+            padding: 10px 4px;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text-muted);
@@ -400,8 +411,19 @@
             cursor: pointer;
         }
 
+        .btn-row-del {
+            background: rgba(239, 68, 68, 0.25);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         .table-wrapper {
-            max-height: 240px;
+            max-height: 260px;
             overflow-x: auto;
             overflow-y: auto;
             border: 1px solid var(--card-border);
@@ -431,7 +453,7 @@
             border-bottom: 1px solid var(--card-border);
         }
 
-        /* FULL FORMS & 5S STYLES */
+        /* FULL FORMS & GUIDELINES STYLES */
         .grid-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -442,10 +464,10 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
-            padding: 10px 12px;
+            padding: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .info-badge {
@@ -453,12 +475,82 @@
             font-size: 11px;
             padding: 6px 10px;
             border-radius: 6px;
-            min-width: 65px;
+            min-width: 70px;
             text-align: center;
         }
 
-        .info-title { font-size: 12px; font-weight: 800; color: #fff; }
-        .info-sub { font-size: 10px; color: var(--text-muted); }
+        .info-title { font-size: 13px; font-weight: 800; color: #fff; }
+        .info-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        /* GUIDELINES STYLES */
+        .section-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .section-header {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--fk-yellow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--card-border);
+            padding-bottom: 6px;
+        }
+
+        .rule-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rule-item {
+            font-size: 12px;
+            line-height: 1.4;
+            color: #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background: var(--input-bg);
+            padding: 8px 10px;
+            border-radius: 6px;
+            border-left: 3px solid var(--fk-blue);
+        }
+
+        .rule-item strong {
+            color: var(--fk-yellow);
+        }
+
+        .posh-card {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid var(--accent-red);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .posh-header {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--accent-red);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .posh-desc {
+            font-size: 12px;
+            color: #f1f5f9;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
 
         .footer {
             text-align: center;
@@ -483,7 +575,7 @@
 </head>
 <body>
 
-    <!-- CASPER LOGIN MODAL -->
+    <!-- LOGIN MODAL -->
     <div id="login-modal" class="modal-overlay">
         <div class="login-card">
             <div class="login-header">
@@ -491,7 +583,7 @@
                 <div class="login-subtitle">Anjaneya HL Warehouse Portal</div>
             </div>
             
-            <div id="login-error" class="error-msg">Please enter both Casper ID and Name!</div>
+            <div id="login-error" class="error-msg">Please enter Casper ID, Full Name & Designation!</div>
 
             <span class="form-label">Casper ID <span class="req">*</span></span>
             <input type="text" id="login-casper" class="input-field" placeholder="ca.3972948" value="ca.3972948" oninput="autoFillNameByCasper()">
@@ -499,7 +591,14 @@
             <span class="form-label">Full Name <span class="req">*</span></span>
             <input type="text" id="login-name" class="input-field" placeholder="e.g. Nilkantha Mondal">
 
-            <button class="btn-login" onclick="performLogin()">Login Session ➔</button>
+            <span class="form-label">Designation <span class="req">*</span></span>
+            <input type="text" id="login-designation" class="input-field" placeholder="e.g. Sr. Asst / DEO / Team Lead">
+
+            <button class="btn-login" onclick="performLogin()">Login Station ➔</button>
+
+            <div class="login-author-tag">
+                Created by <b>Nilkantha</b> | Flipkart IMT & IRT Portal
+            </div>
         </div>
     </div>
 
@@ -507,7 +606,7 @@
     <header>
         <div>
             <div class="brand-title">FLIPKART <span class="brand-badge">IMT</span></div>
-            <div class="sub-heading">ANJANEYA HL WAREHOUSE</div>
+            <div class="sub-heading">ANJANEYA HL WAREHOUSE | Created by Nilkantha</div>
         </div>
         <div class="hhd-status">
             <span class="dot"></span> HHD ONLINE
@@ -517,9 +616,9 @@
     <!-- ACTIVE SESSION BAR -->
     <div class="session-bar">
         <div class="session-info">
-            <div class="session-item">👤 Name: <span id="active-user-name">Nilkantha Mondal</span></div>
+            <div class="session-item">👤 Name: <span id="active-user-name">Nilkantha Mondal</span> (<span id="active-designation" style="color:#a7f3d0;">Sr. Asst</span>)</div>
             <div class="session-item">🆔 Casper ID: <span id="active-casper">ca.3972948</span></div>
-            <div class="session-item" style="font-size:10px; color:var(--accent-teal);">🔒 Owner-Only Data Mode Active</div>
+            <div class="session-item" style="font-size:10px; color:var(--accent-teal);">🔒 Strict Per-User Casper Data Isolation</div>
         </div>
         <button class="btn-switch-session" onclick="openLoginModal()">Switch User 🔄</button>
     </div>
@@ -532,11 +631,11 @@
         <a href="http://10.24.1.53/" target="_blank" class="btn-system-connect">OPEN FLO ↗</a>
     </div>
 
-    <!-- TABS -->
+    <!-- NAVIGATION TABS -->
     <div class="nav-tabs">
         <div class="tab-btn active" onclick="switchTab('process')">IMT Audit Portal</div>
+        <div class="tab-btn" onclick="switchTab('guidelines')">Rules & Guidelines</div>
         <div class="tab-btn" onclick="switchTab('fullforms')">Full Forms List</div>
-        <div class="tab-btn" onclick="switchTab('5s')">5S Data</div>
     </div>
 
     <!-- MAIN PROCESS TAB -->
@@ -626,7 +725,7 @@
 
             <!-- 3. LIVE INF TRACKER FORM (IRT) -->
             <div id="form-inf" style="display: none;">
-                <div class="form-title">Live INF Tracker 2026</div>
+                <div class="form-title">Live INF Tracker 2026 (IRT)</div>
                 <div class="grid-2">
                     <div>
                         <span class="form-label">IRT Casper ID</span>
@@ -686,8 +785,8 @@
             <div class="table-header-bar">
                 <span class="table-title">📊 My Logged Entries (<span id="total-count">0</span>)</span>
                 <div class="action-btns">
-                    <button class="btn-export" onclick="exportDataCSV()">📥 Export My CSV</button>
-                    <button class="btn-clear" onclick="clearData()">Clear My Records</button>
+                    <button class="btn-export" onclick="exportDataCSV()">📥 Export CSV</button>
+                    <button class="btn-clear" onclick="clearData()">Clear All</button>
                 </div>
             </div>
 
@@ -695,6 +794,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Action</th>
                             <th>Time</th>
                             <th>Form Type</th>
                             <th>Casper / Auditor</th>
@@ -710,6 +810,77 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- NEW RULES & GUIDELINES TAB -->
+    <div id="tab-guidelines" style="display: none;">
+        <!-- WORK RULES -->
+        <div class="section-box">
+            <div class="section-header">📌 Work Rules & Audit Guidelines</div>
+            <ul class="rule-list">
+                <li class="rule-item">
+                    <span>• <strong>100% Accuracy Policy:</strong> Always scan WID barcodes physical-to-system to avoid inventory mismatches. Zero tolerance for unverified entries.</span>
+                </li>
+                <li class="rule-item">
+                    <span>• <strong>Zero Scanner Error Rule:</strong> Double-check HHD scanner readings before submitting audit records. Verify physical count matches physical stock.</span>
+                </li>
+                <li class="rule-item">
+                    <span>• <strong>FLO System Check (10.24.1.53):</strong> Perform a mandatory FLO lookup for any shortage, excess, or untraced bin item prior to flagging.</span>
+                </li>
+                <li class="rule-item">
+                    <span>• <strong>Location Validation:</strong> Ensure physical bin barcode tag matches system location ID during W2W and INF clearing processes.</span>
+                </li>
+                <li class="rule-item">
+                    <span>• <strong>Real-Time Logging:</strong> Record every IMT/IRT action immediately on the portal to keep shift counts synced.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 5S GUIDELINES -->
+        <div class="section-box">
+            <div class="section-header">🧹 5S Standards & Warehouse Cleanliness</div>
+            <div class="grid-container">
+                <div class="info-card" style="border-left: 4px solid #ef4444;">
+                    <div class="info-badge" style="background:#ef4444; color:#fff;">1. SORT</div>
+                    <div><div class="info-title">Sort (Seiri)</div><div class="info-sub">Clear unneeded items, damaged stock, and trash from active bin locations.</div></div>
+                </div>
+                <div class="info-card" style="border-left: 4px solid #2874f0;">
+                    <div class="info-badge" style="background:#2874f0; color:#fff;">2. SET IN ORDER</div>
+                    <div><div class="info-title">Set In Order (Seiton)</div><div class="info-sub">Organize WIDs with barcodes facing forward for swift HHD scanning.</div></div>
+                </div>
+                <div class="info-card" style="border-left: 4px solid #8b5cf6;">
+                    <div class="info-badge" style="background:#8b5cf6; color:#fff;">3. SHINE</div>
+                    <div><div class="info-title">Shine (Seiso)</div><div class="info-sub">Keep scanning devices, trolleys, and aisle shelves clean and dust-free daily.</div></div>
+                </div>
+                <div class="info-card" style="border-left: 4px solid #10b981;">
+                    <div class="info-badge" style="background:#10b981; color:#fff;">4. STANDARDIZE</div>
+                    <div><div class="info-title">Standardize (Seiketsu)</div><div class="info-sub">Maintain standard operating procedures across all shifts at Anjaneya HL.</div></div>
+                </div>
+                <div class="info-card" style="border-left: 4px solid #f97316;">
+                    <div class="info-badge" style="background:#f97316; color:#fff;">5. SUSTAIN</div>
+                    <div><div class="info-title">Sustain (Shitsuke)</div><div class="info-sub">Build daily discipline, respect team members, and follow floor rules consistently.</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- POSH POLICY -->
+        <div class="posh-card">
+            <div class="posh-header">🛡️ Prevention of Sexual Harassment (POSH) Policy</div>
+            <div class="posh-desc">
+                Flipkart is committed to providing a safe, respectful, and equal-opportunity work environment free from harassment, intimidation, or discrimination for every employee and worker.
+            </div>
+            <ul class="rule-list">
+                <li class="rule-item" style="border-left-color: var(--accent-red);">
+                    <span>• <strong>Zero Tolerance:</strong> Strict zero-tolerance policy against any form of unwelcome verbal, non-verbal, or physical behavior.</span>
+                </li>
+                <li class="rule-item" style="border-left-color: var(--accent-red);">
+                    <span>• <strong>Respect at Workplace:</strong> Maintain professional dignity and workplace courtesy across all interactions at Anjaneya HL Warehouse.</span>
+                </li>
+                <li class="rule-item" style="border-left-color: var(--accent-red);">
+                    <span>• <strong>Reporting Portal:</strong> Report any concerns immediately to internal Complaints Committee (ICC) or HR representatives in confidence.</span>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <!-- FULL FORMS TAB -->
@@ -778,30 +949,6 @@
         </div>
     </div>
 
-    <!-- 5S TAB -->
-    <div id="tab-5s" style="display: none;">
-        <div class="grid-container">
-            <div class="info-card" style="border-left: 4px solid #ef4444;">
-                <div class="info-badge" style="background:#ef4444; color:#fff;">5S (1)</div>
-                <div><div class="info-title">Sort</div><div class="info-sub">Clear unneeded items from bins</div></div>
-            </div>
-            <div class="info-card" style="border-left: 4px solid #2874f0;">
-                <div class="info-badge" style="background:#2874f0; color:#fff;">5S (2)</div>
-                <div><div class="info-title">Set In Order</div><div class="info-sub">Organize WIDs logically for scanning</div></div>
-            </div>
-            <div class="info-card" style="border-left: 4px solid #8b5cf6;">
-                <div class="info-badge" style="background:#8b5cf6; color:#fff;">5S (3)</div>
-                <div><div class="info-title">Shine</div><div class="info-sub">Clean bins and scanning zones daily</div></div>
-            </div>
-            <div class="info-card" style="border-left: 4px solid #10b981;">
-                <div class="info-badge" style="background:#10b981; color:#fff;">Standardize</div><div class="info-sub">Maintain standard IMT auditing</div></div>
-            </div>
-            <div class="info-card" style="border-left: 4px solid #f97316;">
-                <div class="info-badge" style="background:#f97316; color:#fff;">Sustain</div><div class="info-sub">Maintain daily warehouse disciplines</div></div>
-            </div>
-        </div>
-    </div>
-
     <!-- FOOTER -->
     <div class="footer">
         Flipkart Minutes IMT | <b>Anjaneya HL Warehouse</b> | Created by <b>Nilkantha</b>
@@ -810,14 +957,17 @@
     <script>
         let currentCasper = 'ca.3972948';
         let currentName = 'Nilkantha Mondal';
+        let currentDesignation = 'Sr. Asst';
 
         document.addEventListener("DOMContentLoaded", () => {
             const savedCasper = localStorage.getItem("active_casper_id");
             const savedName = localStorage.getItem("active_user_name");
+            const savedDesig = localStorage.getItem("active_user_designation");
 
             if (savedCasper && savedName) {
                 currentCasper = savedCasper;
                 currentName = savedName;
+                currentDesignation = savedDesig || 'Sr. Asst';
                 applySession();
                 closeLoginModal();
             } else {
@@ -825,18 +975,19 @@
             }
         });
 
-        function getCasperNameMap() {
-            return JSON.parse(localStorage.getItem("casper_name_mappings")) || {
-                "ca.3972948": "Nilkantha Mondal"
+        function getCasperProfileMap() {
+            return JSON.parse(localStorage.getItem("casper_profile_mappings")) || {
+                "ca.3972948": { name: "Nilkantha Mondal", desig: "Sr. Asst" }
             };
         }
 
         function autoFillNameByCasper() {
             const casperInput = document.getElementById("login-casper").value.trim().toLowerCase();
-            const mappings = getCasperNameMap();
+            const mappings = getCasperProfileMap();
 
             if (mappings[casperInput]) {
-                document.getElementById("login-name").value = mappings[casperInput];
+                document.getElementById("login-name").value = mappings[casperInput].name || "";
+                document.getElementById("login-designation").value = mappings[casperInput].desig || "";
             }
         }
 
@@ -845,6 +996,9 @@
             autoFillNameByCasper();
             if (!document.getElementById("login-name").value) {
                 document.getElementById("login-name").value = currentName;
+            }
+            if (!document.getElementById("login-designation").value) {
+                document.getElementById("login-designation").value = currentDesignation;
             }
             document.getElementById("login-modal").style.display = "flex";
             document.getElementById("login-error").style.display = "none";
@@ -857,23 +1011,26 @@
         function performLogin() {
             const casperInput = document.getElementById("login-casper").value.trim().toLowerCase();
             const nameInput = document.getElementById("login-name").value.trim();
+            const desigInput = document.getElementById("login-designation").value.trim();
 
-            if (!casperInput || !nameInput) {
+            if (!casperInput || !nameInput || !desigInput) {
                 document.getElementById("login-error").style.display = "block";
                 return;
             }
 
             currentCasper = casperInput;
             currentName = nameInput;
+            currentDesignation = desigInput;
 
             // Save active session
             localStorage.setItem("active_casper_id", currentCasper);
             localStorage.setItem("active_user_name", currentName);
+            localStorage.setItem("active_user_designation", currentDesignation);
 
             // Update auto-fill mapping dictionary
-            const mappings = getCasperNameMap();
-            mappings[currentCasper] = currentName;
-            localStorage.setItem("casper_name_mappings", JSON.stringify(mappings));
+            const mappings = getCasperProfileMap();
+            mappings[currentCasper] = { name: currentName, desig: currentDesignation };
+            localStorage.setItem("casper_profile_mappings", JSON.stringify(mappings));
 
             applySession();
             closeLoginModal();
@@ -882,6 +1039,7 @@
         function applySession() {
             document.getElementById("active-casper").innerText = currentCasper;
             document.getElementById("active-user-name").innerText = currentName;
+            document.getElementById("active-designation").innerText = currentDesignation;
 
             // Auto-fill Auditor Name and Casper ID across forms
             document.getElementById("w2w-auditer").value = currentName;
@@ -930,6 +1088,7 @@
                 }
 
                 record = {
+                    id: Date.now(),
                     time: timestamp,
                     form: "W2W Bin Audit",
                     casper: `${currentCasper} (${currentName})`,
@@ -958,6 +1117,7 @@
                 }
 
                 record = {
+                    id: Date.now(),
                     time: timestamp,
                     form: "Excess RCA",
                     casper: `${currentCasper} (${currentName})`,
@@ -988,6 +1148,7 @@
                 }
 
                 record = {
+                    id: Date.now(),
                     time: timestamp,
                     form: "Live INF (IRT)",
                     casper: `${currentCasper} (${currentName})`,
@@ -1015,6 +1176,14 @@
             renderTable();
         }
 
+        function deleteSingleRow(recordId) {
+            const storageKey = getUserStorageKey();
+            let records = JSON.parse(localStorage.getItem(storageKey)) || [];
+            records = records.filter(r => r.id !== recordId);
+            localStorage.setItem(storageKey, JSON.stringify(records));
+            renderTable();
+        }
+
         function renderTable() {
             const storageKey = getUserStorageKey();
             const records = JSON.parse(localStorage.getItem(storageKey)) || [];
@@ -1022,12 +1191,13 @@
             document.getElementById("total-count").innerText = records.length;
 
             if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--text-muted); padding:16px;">No entries recorded yet for <b>${currentName}</b> (${currentCasper}).</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color: var(--text-muted); padding:16px;">No entries recorded yet for <b>${currentName}</b> (${currentCasper}).</td></tr>`;
                 return;
             }
 
             tbody.innerHTML = records.map(r => `
                 <tr>
+                    <td style="text-align:center;"><button class="btn-row-del" onclick="deleteSingleRow(${r.id})">🗑️ Delete</button></td>
                     <td>${r.time}</td>
                     <td><b style="color:var(--fk-yellow);">${r.form}</b></td>
                     <td><b>${r.casper}</b></td>
@@ -1041,7 +1211,7 @@
         }
 
         function clearData() {
-            if (confirm(`Are you sure you want to clear records ONLY for ${currentName} (${currentCasper})?`)) {
+            if (confirm(`Are you sure you want to clear ALL records ONLY for ${currentName} (${currentCasper})?`)) {
                 const storageKey = getUserStorageKey();
                 localStorage.removeItem(storageKey);
                 renderTable();
@@ -1072,13 +1242,13 @@
 
         function switchTab(tabName) {
             document.getElementById("tab-process").style.display = tabName === 'process' ? 'block' : 'none';
+            document.getElementById("tab-guidelines").style.display = tabName === 'guidelines' ? 'block' : 'none';
             document.getElementById("tab-fullforms").style.display = tabName === 'fullforms' ? 'block' : 'none';
-            document.getElementById("tab-5s").style.display = tabName === '5s' ? 'block' : 'none';
 
             const tabs = document.querySelectorAll('.tab-btn');
             tabs[0].classList.toggle('active', tabName === 'process');
-            tabs[1].classList.toggle('active', tabName === 'fullforms');
-            tabs[2].classList.toggle('active', tabName === '5s');
+            tabs[1].classList.toggle('active', tabName === 'guidelines');
+            tabs[2].classList.toggle('active', tabName === 'fullforms');
         }
     </script>
 </body>
