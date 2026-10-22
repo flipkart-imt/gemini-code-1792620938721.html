@@ -1284,18 +1284,17 @@
             closeWebhookModal();
         }
 
-        function syncToGoogleSheets(record) {
-            const url = localStorage.getItem("google_sheets_webhook_url");
-            if (!url) return;
+    function syncToGoogleSheets(record) {
+    const url = localStorage.getItem("google_sheets_webhook_url");
+    if (!url) return;
 
-            fetch(url, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(record)
-            }).catch(e => console.log("Cloud sync pending offline storage"));
-        }
-
+    fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(record)
+    }).catch(e => console.log("Sync error:", e));
+}
         function toggleCameraScanner() {
             const readerDiv = document.getElementById("camera-reader");
             if (isCameraScanning) {
