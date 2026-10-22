@@ -21,6 +21,17 @@
             --accent-cyan: #06b6d4;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --table-header-bg: #1e293b;
+        }
+
+        body.light-theme {
+            --bg-dark: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #cbd5e1;
+            --input-bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --table-header-bg: #e2e8f0;
         }
 
         * {
@@ -37,6 +48,7 @@
             padding: 10px;
             font-size: 13px;
             padding-bottom: 30px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .modal-overlay {
@@ -55,20 +67,22 @@
         }
 
         .login-card {
-            background: #0f172a;
+            background: var(--card-bg);
             border: 2px solid var(--fk-blue);
             border-radius: 16px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             padding: 24px 20px;
             box-shadow: 0 0 35px rgba(40, 116, 240, 0.35);
             text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .login-title {
             font-size: 20px;
             font-weight: 900;
-            color: #fff;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -161,7 +175,7 @@
         .login-footer-credits b { color: var(--fk-yellow); }
 
         .session-bar {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: var(--card-bg);
             border: 1px solid var(--fk-blue);
             border-radius: 8px;
             padding: 8px 12px;
@@ -175,7 +189,7 @@
         .session-info {
             font-size: 11px;
             font-weight: 700;
-            color: #e2e8f0;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -185,7 +199,6 @@
             color: #38bdf8;
             font-weight: 900;
             letter-spacing: 0.3px;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
             background: rgba(14, 165, 233, 0.15);
             padding: 3px 8px;
             border-radius: 6px;
@@ -247,6 +260,23 @@
             color: #e0e7ff;
             font-weight: 700;
             margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
         }
 
         .hhd-status {
@@ -349,7 +379,7 @@
         .kpi-num {
             font-size: 15px;
             font-weight: 900;
-            color: #fff;
+            color: var(--text-main);
         }
 
         .kpi-sub {
@@ -389,26 +419,15 @@
 
         .select-field, .input-field {
             width: 100%;
-            background: #091328;
-            border: 1px solid #1e3a8a;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
             border-radius: 8px;
             padding: 11px;
-            color: #38bdf8;
+            color: var(--text-main);
             font-size: 13px;
             font-weight: 700;
             outline: none;
             margin-bottom: 10px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .select-field:focus, .input-field:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
-        }
-
-        .input-field::placeholder {
-            color: #475569;
-            font-weight: 500;
         }
 
         .grid-2 {
@@ -444,7 +463,7 @@
         }
 
         .variance-banner {
-            background: #020617;
+            background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
             padding: 8px 12px;
@@ -494,7 +513,7 @@
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            color: #e2e8f0;
+            color: var(--text-main);
         }
 
         .radio-item input[type="radio"] {
@@ -518,9 +537,8 @@
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
 
-        /* DATE FILTER TOOLBAR */
         .filter-bar {
-            background: #020617;
+            background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
             padding: 8px 10px;
@@ -540,14 +558,38 @@
         }
 
         .date-input {
-            background: #0f172a;
-            border: 1px solid #1e3a8a;
-            color: #38bdf8;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
             padding: 4px 8px;
             border-radius: 6px;
             font-size: 11px;
             font-weight: 700;
             outline: none;
+        }
+
+        .search-text-input {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            outline: none;
+            min-width: 130px;
+        }
+
+        .btn-search-date {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
         }
 
         .btn-clear-filter {
@@ -616,6 +658,17 @@
             cursor: pointer;
         }
 
+        .btn-alert-setup {
+            background: rgba(249, 115, 22, 0.2);
+            color: #fb923c;
+            border: 1px solid #f97316;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
         .table-wrapper {
             max-height: 260px;
             overflow-x: auto;
@@ -634,7 +687,7 @@
         }
 
         th {
-            background: #1e293b;
+            background: var(--table-header-bg);
             color: var(--fk-yellow);
             padding: 8px;
             position: sticky;
@@ -648,29 +701,28 @@
         }
 
         .rules-card-vibrant {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
             padding: 14px;
             margin-bottom: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .rules-card-vibrant.work-rules {
-            border-left: 5px solid var(--fk-yellow);
-            background: linear-gradient(135deg, #172554 0%, #0f172a 100%);
+        .rules-card-vibrant.posh-card-red {
+            border: 2px solid var(--accent-red) !important;
+            background: linear-gradient(135deg, rgba(69, 10, 10, 0.6) 0%, var(--card-bg) 100%) !important;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3) !important;
         }
 
-        .rules-card-vibrant.guidelines-5s {
-            border-left: 5px solid var(--accent-purple);
-            background: linear-gradient(135deg, #2e1065 0%, #0f172a 100%);
+        .rules-card-vibrant.posh-card-red .rules-title-vibrant {
+            color: #fca5a5 !important;
+            border-bottom-color: rgba(239, 68, 68, 0.4) !important;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
         }
 
-        .rules-card-vibrant.posh-rules-red {
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            border-left: 5px solid var(--accent-red);
-            background: linear-gradient(135deg, #450a0a 0%, #0f172a 100%);
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.25);
+        .rules-card-vibrant.posh-card-red .rules-list-vibrant li::before {
+            color: var(--accent-red) !important;
         }
 
         .rules-title-vibrant {
@@ -680,18 +732,15 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--card-border);
             padding-bottom: 6px;
+            color: var(--fk-yellow);
         }
-
-        .work-rules .rules-title-vibrant { color: var(--fk-yellow); }
-        .guidelines-5s .rules-title-vibrant { color: #c084fc; }
-        .posh-rules-red .rules-title-vibrant { color: #fca5a5; text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
 
         .rules-list-vibrant {
             list-style-type: none;
             padding: 0;
-            color: #f1f5f9;
+            color: var(--text-main);
             font-size: 11px;
             line-height: 1.6;
         }
@@ -735,7 +784,7 @@
             text-align: center;
         }
 
-        .info-title { font-size: 12px; font-weight: 800; color: #fff; }
+        .info-title { font-size: 12px; font-weight: 800; color: var(--text-main); }
         .info-sub { font-size: 10px; color: var(--text-muted); }
 
         .footer {
@@ -814,6 +863,33 @@
         </div>
     </div>
 
+    <div id="tl-config-modal" class="modal-overlay" style="display: none;">
+        <div class="login-card">
+            <div class="login-title">🚨 TEAM LEADER ALERT SETTINGS</div>
+            <div class="login-subtitle">Automated WhatsApp, Email & Webhook Alerts</div>
+            
+            <div class="login-form-group">
+                <span class="form-label">TEAM LEADER WHATSAPP NUMBER (With Country Code)</span>
+                <input type="text" id="tl-phone-input" class="input-field" placeholder="919876543210">
+            </div>
+
+            <div class="login-form-group">
+                <span class="form-label">TEAM LEADER EMAIL ADDRESS</span>
+                <input type="email" id="tl-email-input" class="input-field" placeholder="teamleader@flipkart.com">
+            </div>
+
+            <div class="login-form-group">
+                <span class="form-label">TELEGRAM / SLACK WEBHOOK URL (Optional)</span>
+                <input type="text" id="tl-webhook-input" class="input-field" placeholder="https://api.telegram.org/bot.../sendMessage">
+            </div>
+
+            <div class="grid-2">
+                <button class="login-btn" style="background:#059669;" onclick="saveTLAlertConfig()">SAVE CONFIGURATION ➔</button>
+                <button class="login-btn" style="background:#dc2626;" onclick="closeTLConfigModal()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
     <div id="escalation-modal" class="modal-overlay" style="display: none;">
         <div class="login-card" style="border-color: var(--accent-red); box-shadow: 0 0 35px rgba(239, 68, 68, 0.5);">
             <div class="login-title" style="color: var(--accent-red);">🚨 TEAM LEADER ALERT</div>
@@ -822,6 +898,11 @@
             <p style="color: #cbd5e1; font-size: 12px; margin-bottom: 16px; line-height: 1.5;">
                 As per <b>100% Quality & 0% Mistake Policy</b>, please inform your shift Team Leader immediately regarding this physical mismatch.
             </p>
+
+            <div class="grid-2" style="margin-bottom: 10px;">
+                <button class="login-btn" style="background: #25d366; color: #000; margin: 0;" onclick="sendTLWhatsAppAlert()">📱 Send WhatsApp Alert</button>
+                <button class="login-btn" style="background: #2563eb; color: #fff; margin: 0;" onclick="sendTLEmailAlert()">✉️ Send Mail Alert</button>
+            </div>
 
             <button class="login-btn" style="background: var(--accent-red);" onclick="closeEscalationModal()">ACKNOWLEDGE & CONTINUE ➔</button>
         </div>
@@ -832,8 +913,11 @@
             <div class="brand-title">FLIPKART <span class="brand-badge">IMT</span></div>
             <div class="sub-heading">ANJANEYA HL WAREHOUSE</div>
         </div>
-        <div class="hhd-status">
-            <span class="dot"></span> HHD ONLINE
+        <div class="header-actions">
+            <button class="theme-toggle-btn" onclick="toggleTheme()">☀️ / 🌙 Theme</button>
+            <div class="hhd-status">
+                <span class="dot"></span> HHD ONLINE
+            </div>
         </div>
     </header>
 
@@ -885,13 +969,18 @@
             <span class="form-label">Select Audit Form</span>
             <select id="selected-process" class="select-field" onchange="onProcessChange()">
                 <option value="W2W">1. W2W Bin Audit Status</option>
-                <option value="RCA">2. Excess Products RCA</option>
-                <option value="INF">3. Live INF Tracker (IRT)</option>
+                <option value="TTL">2. TTL (Task Transfer List) Audit</option>
+                <option value="RCA">3. Excess Products RCA</option>
+                <option value="INF">4. Live INF Tracker (IRT)</option>
+                <option value="DAMAGE">5. Daily Damage Product Audit</option>
+                <option value="PILFERAGE">6. Pilferage Incident Report</option>
+                <option value="HVC">7. HVC Daily Wise Damage Audit</option>
             </select>
 
             <button class="btn-camera-scan" onclick="toggleCameraScanner()">📷 Tap To Open Camera Barcode Scanner</button>
             <div id="camera-reader"></div>
 
+            <!-- FORM 1: W2W -->
             <div id="form-w2w">
                 <div class="form-title">W2W Bin Audit Status</div>
                 <div class="grid-2">
@@ -938,6 +1027,51 @@
                 </div>
             </div>
 
+            <!-- FORM 2: TTL AUDIT -->
+            <div id="form-ttl" style="display: none;">
+                <div class="form-title">TTL (Task Transfer List) Audit</div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Casper ID <span class="req">*</span></span>
+                        <input type="text" id="ttl-casper" class="input-field" placeholder="Casper ID" readonly>
+                    </div>
+                    <div>
+                        <span class="form-label">TTL Task ID <span class="req">*</span></span>
+                        <input type="text" id="ttl-taskid" class="input-field" placeholder="Scan/Enter TTL ID">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">EAN / WID <span class="req">*</span></span>
+                        <input type="text" id="ttl-wid" class="input-field" placeholder="Scan EAN/WID">
+                    </div>
+                    <div>
+                        <span class="form-label">Transfer Qty <span class="req">*</span></span>
+                        <input type="number" id="ttl-qty" class="input-field" placeholder="Qty">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Source Location <span class="req">*</span></span>
+                        <input type="text" id="ttl-srcloc" class="input-field" placeholder="From Location">
+                    </div>
+                    <div>
+                        <span class="form-label">Dest Location <span class="req">*</span></span>
+                        <input type="text" id="ttl-destloc" class="input-field" placeholder="To Location">
+                    </div>
+                </div>
+                <span class="form-label">TTL Status & Remarks</span>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="ttl-remarks" value="Transfer Completed Successfully" checked> Transfer Completed Successfully</label>
+                    <label class="radio-item"><input type="radio" name="ttl-remarks" value="Quantity Mismatch in Transfer"> Quantity Mismatch in Transfer</label>
+                    <label class="radio-item"><input type="radio" name="ttl-remarks" value="Item Missing at Source Bin"> Item Missing at Source Bin</label>
+                    <label class="radio-item"><input type="radio" name="ttl-remarks" value="Destination Bin Full / Blocked"> Destination Bin Full / Blocked</label>
+                    <label class="radio-item"><input type="radio" name="ttl-remarks" value="Damaged Product in TTL"> Damaged Product in TTL</label>
+                    <label class="radio-item"><input type="radio" name="ttl-remarks" value="TTL Cancelled / Pending"> TTL Cancelled / Pending</label>
+                </div>
+            </div>
+
+            <!-- FORM 3: RCA -->
             <div id="form-rca" style="display: none;">
                 <div class="form-title">Excess Products RCA</div>
                 <div class="grid-2">
@@ -970,6 +1104,7 @@
                 </div>
             </div>
 
+            <!-- FORM 4: INF -->
             <div id="form-inf" style="display: none;">
                 <div class="form-title">Live INF Tracker (IRT)</div>
                 <div class="grid-2">
@@ -1025,15 +1160,148 @@
                 </div>
             </div>
 
+            <!-- FORM 5: DAILY DAMAGE PRODUCT -->
+            <div id="form-damage" style="display: none;">
+                <div class="form-title">Daily Damage Product Audit</div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Casper ID <span class="req">*</span></span>
+                        <input type="text" id="dmg-casper" class="input-field" placeholder="Casper ID" readonly>
+                    </div>
+                    <div>
+                        <span class="form-label">EAN / WID <span class="req">*</span></span>
+                        <input type="text" id="dmg-wid" class="input-field" placeholder="Scan EAN/WID">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Location <span class="req">*</span></span>
+                        <input type="text" id="dmg-location" class="input-field" placeholder="Location">
+                    </div>
+                    <div>
+                        <span class="form-label">Qty <span class="req">*</span></span>
+                        <input type="number" id="dmg-qty" class="input-field" placeholder="Qty">
+                    </div>
+                </div>
+                <span class="form-label">MRP (₹)</span>
+                <input type="number" id="dmg-mrp" class="input-field" placeholder="Enter MRP Price">
+
+                <span class="form-label">Issue Reason <span class="req">*</span></span>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Primary Cover Damage" checked> Primary Cover Damage</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Leakage"> Leakage</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Cutting Issue"> Cutting Issue</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Seal Damage"> Seal Damage</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Box got wet"> Box got wet</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Cap Damage"> Cap Damage</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Product Damage"> Product Damage</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Air Out Issue"> Air Out Issue</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Expiry"> Expiry</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Near Expiry"> Near Expiry</label>
+                    <label class="radio-item"><input type="radio" name="dmg-issue" value="Other"> Other</label>
+                </div>
+
+                <span class="form-label">Category <span class="req">*</span></span>
+                <div class="radio-group" style="max-height: 80px;">
+                    <label class="radio-item"><input type="radio" name="dmg-cat" value="Food" checked> Food</label>
+                    <label class="radio-item"><input type="radio" name="dmg-cat" value="NON FOOD"> NON FOOD</label>
+                </div>
+            </div>
+
+            <!-- FORM 6: PILFERAGE REPORT -->
+            <div id="form-pilferage" style="display: none;">
+                <div class="form-title">Pilferage Incident Report</div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">EAN / WID <span class="req">*</span></span>
+                        <input type="text" id="pil-wid" class="input-field" placeholder="Scan EAN/WID">
+                    </div>
+                    <div>
+                        <span class="form-label">Qty <span class="req">*</span></span>
+                        <input type="number" id="pil-qty" class="input-field" placeholder="Qty">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">MRP (₹)</span>
+                        <input type="number" id="pil-mrp" class="input-field" placeholder="Enter MRP Price">
+                    </div>
+                    <div>
+                        <span class="form-label">Brand Name</span>
+                        <input type="text" id="pil-brand" class="input-field" placeholder="Brand Name">
+                    </div>
+                </div>
+
+                <span class="form-label">Vertical <span class="req">*</span></span>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="chips" checked> chips</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="cookie_biscult"> cookie_biscult</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="Cool Drinks(Tins)"> Cool Drinks(Tins)</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="Sweets"> Sweets</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="Snacks"> Snacks</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="lassi"> lassi</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="milk"> milk</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="cake_pastry"> cake_pastry</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="water can"> water can</label>
+                    <label class="radio-item"><input type="radio" name="pil-vertical" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <!-- FORM 7: HVC DAILY WISE DAMAGE -->
+            <div id="form-hvc" style="display: none;">
+                <div class="form-title">HVC Daily Wise Damage Audit</div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Casper ID <span class="req">*</span></span>
+                        <input type="text" id="hvc-casper" class="input-field" placeholder="Casper ID" readonly>
+                    </div>
+                    <div>
+                        <span class="form-label">WID <span class="req">*</span></span>
+                        <input type="text" id="hvc-wid" class="input-field" placeholder="Scan WID">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <span class="form-label">Location <span class="req">*</span></span>
+                        <input type="text" id="hvc-location" class="input-field" placeholder="Location">
+                    </div>
+                    <div>
+                        <span class="form-label">Qty <span class="req">*</span></span>
+                        <input type="number" id="hvc-qty" class="input-field" placeholder="Qty">
+                    </div>
+                </div>
+
+                <span class="form-label">HVC Damage / Defect Issue <span class="req">*</span></span>
+                <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Brand Seal Damage" checked> Brand Seal Damage</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Security Seal Damage"> Security Seal Damage</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Box Damage"> Box Damage</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Pilferage"> Pilferage</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Wet Condition"> Wet Condition</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Dirty Condition"> Dirty Condition</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Price Tag Faded"> Price Tag Faded</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="No Issue"> No Issue</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Excess"> Excess</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Shortage"> Shortage</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Physically No Product"> Physically No Product</label>
+                    <label class="radio-item"><input type="radio" name="hvc-issue" value="Other"> Other</label>
+                </div>
+            </div>
+
             <button class="btn-submit" onclick="submitCurrentForm()">Submit Record</button>
 
-            <!-- DATE FILTER BAR -->
+            <!-- DATE & TEXT FILTER BAR -->
             <div class="filter-bar">
                 <span class="filter-label">📅 Date Range Filter:</span>
-                <span style="font-size: 10px; color: #94a3b8;">From</span>
-                <input type="date" id="filter-date-from" class="date-input" onchange="renderTable()">
-                <span style="font-size: 10px; color: #94a3b8;">To</span>
-                <input type="date" id="filter-date-to" class="date-input" onchange="renderTable()">
+                <span style="font-size: 10px; color: var(--text-muted);">From</span>
+                <input type="date" id="filter-date-from" class="date-input">
+                <span style="font-size: 10px; color: var(--text-muted);">To</span>
+                <input type="date" id="filter-date-to" class="date-input">
+                
+                <span style="font-size: 10px; color: var(--text-muted); margin-left: 4px;">Keyword:</span>
+                <input type="text" id="filter-text-search" class="search-text-input" placeholder="WID / Loc / Casper">
+
+                <button class="btn-search-date" onclick="executeDateSearch()">🔍 Search Data</button>
                 <button class="btn-clear-filter" onclick="clearDateFilter()">Clear Filter</button>
             </div>
 
@@ -1042,6 +1310,7 @@
                 <div class="action-btns">
                     <button class="btn-tool admin-only-feature" onclick="undoLastEntry()">↩️ Undo Last</button>
                     <button class="btn-tool admin-only-feature" onclick="generateShiftReport()">📋 Shift Report</button>
+                    <button class="btn-alert-setup admin-only-feature" onclick="openTLConfigModal()">🚨 TL Alert Setup</button>
                     <button class="btn-tool admin-only-feature" onclick="openWebhookModal()">🌐 Sheets Webhook</button>
                     <button class="btn-export" onclick="exportUserCSV()">📥 Export Filtered CSV</button>
                     <button class="btn-master-export admin-only-feature" onclick="exportMasterCSV()">🔒 Owner Master CSV</button>
@@ -1071,7 +1340,7 @@
     </div>
 
     <div id="tab-rules" style="display: none;">
-        <div class="rules-card-vibrant work-rules">
+        <div class="rules-card-vibrant">
             <div class="rules-title-vibrant">🎯 Work Rules (100% Quality & 0% Mistake Policy)</div>
             <ul class="rules-list-vibrant">
                 <li><b>100% Audit Precision:</b> Physical Qty must always be double-checked against System Qty.</li>
@@ -1082,7 +1351,7 @@
             </ul>
         </div>
 
-        <div class="rules-card-vibrant guidelines-5s">
+        <div class="rules-card-vibrant">
             <div class="rules-title-vibrant">✨ 5S Standard Guidelines & Descriptions</div>
             <ul class="rules-list-vibrant">
                 <li><b>1S - Sort (Seiri):</b> Remove all unneeded items, empty boxes, and discarded labels from the bin audit zone.</li>
@@ -1093,7 +1362,7 @@
             </ul>
         </div>
 
-        <div class="rules-card-vibrant posh-rules-red">
+        <div class="rules-card-vibrant posh-card-red">
             <div class="rules-title-vibrant">🛡️ Workplace Respect & POSH Guidelines</div>
             <ul class="rules-list-vibrant">
                 <li><b>Zero Tolerance Policy:</b> Flipkart maintains a strict zero-tolerance policy against any form of sexual harassment or discrimination.</li>
@@ -1143,6 +1412,7 @@
         let currentSessionUser = null;
         let isAdminLoggedIn = false;
         let activeLoginTab = 'USER';
+        let lastEscalationRecord = null;
 
         const ADMIN_NAME = "Nilkantha";
         const ADMIN_SECRET_PASS = "288067";
@@ -1151,9 +1421,26 @@
         let html5QrCode = null;
         let isCameraScanning = false;
 
+        function getLocalDateString(d = new Date()) {
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
+            const savedTheme = localStorage.getItem("portal_theme") || "dark";
+            if (savedTheme === "light") {
+                document.body.classList.add("light-theme");
+            }
             checkSession();
         });
+
+        function toggleTheme() {
+            document.body.classList.toggle("light-theme");
+            const isLight = document.body.classList.contains("light-theme");
+            localStorage.setItem("portal_theme", isLight ? "light" : "dark");
+        }
 
         function checkSession() {
             const sessionData = localStorage.getItem("active_casper_session");
@@ -1173,8 +1460,11 @@
 
                 document.getElementById("w2w-auditer").value = currentSessionUser.name;
                 document.getElementById("w2w-casper").value = currentSessionUser.casper;
+                document.getElementById("ttl-casper").value = currentSessionUser.casper;
                 document.getElementById("rca-casper").value = currentSessionUser.casper;
                 document.getElementById("inf-casper").value = currentSessionUser.casper;
+                document.getElementById("dmg-casper").value = currentSessionUser.casper;
+                document.getElementById("hvc-casper").value = currentSessionUser.casper;
 
                 applyRoleAccessUI();
                 renderTable();
@@ -1299,6 +1589,101 @@
             closeWebhookModal();
         }
 
+        function openTLConfigModal() {
+            if (!isAdminLoggedIn) return;
+            document.getElementById("tl-phone-input").value = localStorage.getItem("tl_phone_number") || "";
+            document.getElementById("tl-email-input").value = localStorage.getItem("tl_email_address") || "";
+            document.getElementById("tl-webhook-input").value = localStorage.getItem("tl_webhook_url") || "";
+            document.getElementById("tl-config-modal").style.display = "flex";
+        }
+
+        function closeTLConfigModal() {
+            document.getElementById("tl-config-modal").style.display = "none";
+        }
+
+        function saveTLAlertConfig() {
+            const phone = document.getElementById("tl-phone-input").value.trim();
+            const email = document.getElementById("tl-email-input").value.trim();
+            const webhook = document.getElementById("tl-webhook-input").value.trim();
+
+            localStorage.setItem("tl_phone_number", phone);
+            localStorage.setItem("tl_email_address", email);
+            localStorage.setItem("tl_webhook_url", webhook);
+
+            alert("Team Leader Alert Channels Saved!");
+            closeTLConfigModal();
+        }
+
+        function triggerAutomatedWebhookAlert(record) {
+            const webhookUrl = localStorage.getItem("tl_webhook_url");
+            if (!webhookUrl) return;
+
+            const payload = {
+                event: "CRITICAL_VARIANCE_ESCALATION",
+                warehouse: "Anjaneya HL Warehouse",
+                auditor: record.casper,
+                form: record.form,
+                location: record.location,
+                wid: record.wid,
+                quantity: record.qty,
+                remarks: record.remarks,
+                date: record.date,
+                time: record.time
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).catch(e => console.log("Webhook alert error:", e));
+        }
+
+        function sendTLWhatsAppAlert() {
+            if (!lastEscalationRecord) return;
+            const phone = localStorage.getItem("tl_phone_number");
+            if (!phone) {
+                alert("Team Leader WhatsApp number not configured! Admin can set it up via '🚨 TL Alert Setup'.");
+                return;
+            }
+
+            const msg = `🚨 *FLIPKART IMT AUDIT DISCREPANCY ALERT*\n` +
+                `🏢 *Warehouse:* Anjaneya HL\n` +
+                `👤 *Auditor:* ${lastEscalationRecord.casper}\n` +
+                `📍 *Location:* ${lastEscalationRecord.location}\n` +
+                `📦 *WID/Box:* ${lastEscalationRecord.wid}\n` +
+                `🔢 *Qty/Diff:* ${lastEscalationRecord.qty}\n` +
+                `⚠️ *Remarks:* ${lastEscalationRecord.remarks}\n` +
+                `📅 *Time:* ${lastEscalationRecord.date} ${lastEscalationRecord.time}\n\n` +
+                `Please review on-site immediately!`;
+
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+            window.open(url, "_blank");
+        }
+
+        function sendTLEmailAlert() {
+            if (!lastEscalationRecord) return;
+            const email = localStorage.getItem("tl_email_address");
+            if (!email) {
+                alert("Team Leader Email address not configured! Admin can set it up via '🚨 TL Alert Setup'.");
+                return;
+            }
+
+            const subject = `🚨 URGENT: Audit Discrepancy Escalation at Location ${lastEscalationRecord.location}`;
+            const body = `Team Leader,\n\nA physical discrepancy was logged during an audit shift:\n\n` +
+                `Auditor: ${lastEscalationRecord.casper}\n` +
+                `Form: ${lastEscalationRecord.form}\n` +
+                `Location: ${lastEscalationRecord.location}\n` +
+                `WID/Box: ${lastEscalationRecord.wid}\n` +
+                `Quantity: ${lastEscalationRecord.qty}\n` +
+                `Remarks: ${lastEscalationRecord.remarks}\n` +
+                `Timestamp: ${lastEscalationRecord.date} ${lastEscalationRecord.time}\n\n` +
+                `Please investigate as per 100% Quality & 0% Mistake Policy.`;
+
+            const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(url, "_blank");
+        }
+
         function syncToGoogleSheets(record) {
             const url = localStorage.getItem("google_sheets_webhook_url");
             if (!url) return;
@@ -1334,6 +1719,12 @@
                             } else {
                                 document.getElementById("w2w-wid").value = decodedText;
                             }
+                        } else if (proc === "TTL") {
+                            if (!document.getElementById("ttl-taskid").value) {
+                                document.getElementById("ttl-taskid").value = decodedText;
+                            } else {
+                                document.getElementById("ttl-wid").value = decodedText;
+                            }
                         } else if (proc === "RCA") {
                             if (!document.getElementById("rca-location").value) {
                                 document.getElementById("rca-location").value = decodedText;
@@ -1342,6 +1733,12 @@
                             }
                         } else if (proc === "INF") {
                             document.getElementById("inf-wid").value = decodedText;
+                        } else if (proc === "DAMAGE") {
+                            document.getElementById("dmg-wid").value = decodedText;
+                        } else if (proc === "PILFERAGE") {
+                            document.getElementById("pil-wid").value = decodedText;
+                        } else if (proc === "HVC") {
+                            document.getElementById("hvc-wid").value = decodedText;
                         }
                     },
                     (errorMessage) => {}
@@ -1386,8 +1783,12 @@
         function onProcessChange() {
             const proc = document.getElementById("selected-process").value;
             document.getElementById("form-w2w").style.display = (proc === "W2W") ? "block" : "none";
+            document.getElementById("form-ttl").style.display = (proc === "TTL") ? "block" : "none";
             document.getElementById("form-rca").style.display = (proc === "RCA") ? "block" : "none";
             document.getElementById("form-inf").style.display = (proc === "INF") ? "block" : "none";
+            document.getElementById("form-damage").style.display = (proc === "DAMAGE") ? "block" : "none";
+            document.getElementById("form-pilferage").style.display = (proc === "PILFERAGE") ? "block" : "none";
+            document.getElementById("form-hvc").style.display = (proc === "HVC") ? "block" : "none";
         }
 
         function getSelectedRadio(name) {
@@ -1420,12 +1821,19 @@
 
             const fromDate = document.getElementById("filter-date-from").value;
             const toDate = document.getElementById("filter-date-to").value;
+            const textSearch = document.getElementById("filter-text-search").value.trim().toLowerCase();
 
-            if (fromDate || toDate) {
+            if (fromDate || toDate || textSearch) {
                 allRecords = allRecords.filter(r => {
                     const recDate = r.date || "";
                     if (fromDate && recDate < fromDate) return false;
                     if (toDate && recDate > toDate) return false;
+
+                    if (textSearch) {
+                        const combinedStr = `${r.casper} ${r.location} ${r.wid} ${r.form} ${r.remarks} ${r.details}`.toLowerCase();
+                        if (!combinedStr.includes(textSearch)) return false;
+                    }
+
                     return true;
                 });
             }
@@ -1433,9 +1841,16 @@
             return allRecords;
         }
 
+        function executeDateSearch() {
+            const records = getDisplayRecords();
+            renderTable();
+            alert(`🔍 Search Complete! Found ${records.length} matching entry/entries.`);
+        }
+
         function clearDateFilter() {
             document.getElementById("filter-date-from").value = "";
             document.getElementById("filter-date-to").value = "";
+            document.getElementById("filter-text-search").value = "";
             renderTable();
         }
 
@@ -1447,7 +1862,7 @@
 
             const proc = document.getElementById("selected-process").value;
             const now = new Date();
-            const submitDate = now.toISOString().split('T')[0];
+            const submitDate = getLocalDateString(now);
             const timestamp = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             let record = {};
             let isShortageOrHighVar = false;
@@ -1494,6 +1909,47 @@
                 document.getElementById("w2w-phyqty").value = "";
                 calculateW2WVariance();
                 document.getElementById("w2w-location").focus();
+
+            } else if (proc === "TTL") {
+                const casper = document.getElementById("ttl-casper").value.trim();
+                const taskId = document.getElementById("ttl-taskid").value.trim();
+                const wid = document.getElementById("ttl-wid").value.trim();
+                const qty = document.getElementById("ttl-qty").value.trim() || "0";
+                const srcLoc = document.getElementById("ttl-srcloc").value.trim();
+                const destLoc = document.getElementById("ttl-destloc").value.trim();
+                const remarks = getSelectedRadio("ttl-remarks");
+
+                if (!casper || !taskId || !wid || !srcLoc || !destLoc) {
+                    alert("Please fill Casper ID, Task ID, EAN/WID, Source Location, and Destination Location!");
+                    return;
+                }
+
+                if (remarks.includes("Mismatch") || remarks.includes("Missing") || remarks.includes("Damaged")) {
+                    isShortageOrHighVar = true;
+                }
+
+                record = {
+                    id: Date.now(),
+                    date: submitDate,
+                    time: timestamp,
+                    form: "TTL Transfer Audit",
+                    casper: casper,
+                    location: `${srcLoc} ➔ ${destLoc}`,
+                    wid: `${wid} (Task:${taskId})`,
+                    invQty: "-",
+                    phyQty: qty,
+                    diffQty: qty,
+                    qty: qty,
+                    details: `TTL ID:${taskId} | Src:${srcLoc} | Dest:${destLoc}`,
+                    remarks: remarks
+                };
+
+                document.getElementById("ttl-taskid").value = "";
+                document.getElementById("ttl-wid").value = "";
+                document.getElementById("ttl-qty").value = "";
+                document.getElementById("ttl-srcloc").value = "";
+                document.getElementById("ttl-destloc").value = "";
+                document.getElementById("ttl-taskid").focus();
 
             } else if (proc === "RCA") {
                 const casper = document.getElementById("rca-casper").value.trim();
@@ -1570,6 +2026,117 @@
                 document.getElementById("inf-pickerid").value = "";
                 document.getElementById("inf-clearedloc").value = "";
                 document.getElementById("inf-issueloc").focus();
+
+            } else if (proc === "DAMAGE") {
+                const casper = document.getElementById("dmg-casper").value.trim();
+                const wid = document.getElementById("dmg-wid").value.trim();
+                const loc = document.getElementById("dmg-location").value.trim();
+                const qty = document.getElementById("dmg-qty").value.trim() || "0";
+                const mrp = document.getElementById("dmg-mrp").value.trim() || "N/A";
+                const issue = getSelectedRadio("dmg-issue");
+                const cat = getSelectedRadio("dmg-cat");
+
+                if (!casper || !wid || !loc || !qty) {
+                    alert("Please fill Casper ID, EAN/WID, Location, and Qty!");
+                    return;
+                }
+
+                isShortageOrHighVar = true;
+
+                record = {
+                    id: Date.now(),
+                    date: submitDate,
+                    time: timestamp,
+                    form: "Daily Damage Product",
+                    casper: casper,
+                    location: loc,
+                    wid: wid,
+                    invQty: "-",
+                    phyQty: qty,
+                    diffQty: qty,
+                    qty: qty,
+                    details: `MRP: ₹${mrp} | Category: ${cat}`,
+                    remarks: issue
+                };
+
+                document.getElementById("dmg-wid").value = "";
+                document.getElementById("dmg-location").value = "";
+                document.getElementById("dmg-qty").value = "";
+                document.getElementById("dmg-mrp").value = "";
+                document.getElementById("dmg-wid").focus();
+
+            } else if (proc === "PILFERAGE") {
+                const wid = document.getElementById("pil-wid").value.trim();
+                const qty = document.getElementById("pil-qty").value.trim() || "0";
+                const mrp = document.getElementById("pil-mrp").value.trim() || "N/A";
+                const brand = document.getElementById("pil-brand").value.trim() || "N/A";
+                const vertical = getSelectedRadio("pil-vertical");
+
+                if (!wid || !qty) {
+                    alert("Please fill EAN/WID and Qty!");
+                    return;
+                }
+
+                isShortageOrHighVar = true;
+
+                record = {
+                    id: Date.now(),
+                    date: submitDate,
+                    time: timestamp,
+                    form: "Pilferage Incident Report",
+                    casper: currentSessionUser.casper,
+                    location: "Pilferage Zone",
+                    wid: wid,
+                    invQty: "-",
+                    phyQty: qty,
+                    diffQty: qty,
+                    qty: qty,
+                    details: `Brand: ${brand} | MRP: ₹${mrp} | Vertical: ${vertical}`,
+                    remarks: "Pilferage"
+                };
+
+                document.getElementById("pil-wid").value = "";
+                document.getElementById("pil-qty").value = "";
+                document.getElementById("pil-mrp").value = "";
+                document.getElementById("pil-brand").value = "";
+                document.getElementById("pil-wid").focus();
+
+            } else if (proc === "HVC") {
+                const casper = document.getElementById("hvc-casper").value.trim();
+                const wid = document.getElementById("hvc-wid").value.trim();
+                const loc = document.getElementById("hvc-location").value.trim();
+                const qty = document.getElementById("hvc-qty").value.trim() || "0";
+                const issue = getSelectedRadio("hvc-issue");
+
+                if (!casper || !wid || !loc || !qty) {
+                    alert("Please fill Casper ID, WID, Location, and Qty!");
+                    return;
+                }
+
+                if (issue !== "No Issue") {
+                    isShortageOrHighVar = true;
+                }
+
+                record = {
+                    id: Date.now(),
+                    date: submitDate,
+                    time: timestamp,
+                    form: "HVC Daily Wise Damage",
+                    casper: casper,
+                    location: loc,
+                    wid: wid,
+                    invQty: "-",
+                    phyQty: qty,
+                    diffQty: qty,
+                    qty: qty,
+                    details: "HVC Category Item",
+                    remarks: issue
+                };
+
+                document.getElementById("hvc-wid").value = "";
+                document.getElementById("hvc-location").value = "";
+                document.getElementById("hvc-qty").value = "";
+                document.getElementById("hvc-wid").focus();
             }
 
             const key = getUserStorageKey();
@@ -1581,6 +2148,8 @@
             renderTable();
 
             if (isShortageOrHighVar) {
+                lastEscalationRecord = record;
+                triggerAutomatedWebhookAlert(record);
                 document.getElementById("escalation-modal").style.display = "flex";
             }
         }
@@ -1597,7 +2166,7 @@
             let shortCount = 0;
             let excessCount = 0;
             records.forEach(r => {
-                if (r.remarks === "Shortage" || (r.qty && r.qty.includes("Diff:-"))) shortCount++;
+                if (r.remarks === "Shortage" || (r.qty && r.qty.includes("Diff:-")) || r.form.includes("Damage") || r.form.includes("Pilferage")) shortCount++;
                 if (r.remarks === "Excess" || (r.qty && r.qty.includes("Diff:+"))) excessCount++;
             });
 
@@ -1664,7 +2233,7 @@
             let shortCount = 0;
             let excessCount = 0;
             records.forEach(r => {
-                if (r.remarks === "Shortage" || (r.qty && r.qty.includes("Diff:-"))) shortCount++;
+                if (r.remarks === "Shortage" || (r.qty && r.qty.includes("Diff:-")) || r.form.includes("Damage") || r.form.includes("Pilferage")) shortCount++;
                 if (r.remarks === "Excess" || (r.qty && r.qty.includes("Diff:+"))) excessCount++;
             });
 
@@ -1675,7 +2244,7 @@
                 `👤 *Auditor:* ${currentSessionUser ? currentSessionUser.name : 'N/A'} (${currentSessionUser ? currentSessionUser.casper : ''})\n` +
                 `-----------------------------------\n` +
                 `📊 *Total Audits Logged:* ${records.length}\n` +
-                `🔴 *Shortages Identified:* ${shortCount}\n` +
+                `🔴 *Shortages & Defects:* ${shortCount}\n` +
                 `🟢 *Excesses Logged:* ${excessCount}\n` +
                 `🎯 *Audit Accuracy Rate:* ${accuracy}%\n` +
                 `-----------------------------------\n` +
