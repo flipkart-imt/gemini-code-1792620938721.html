@@ -39,7 +39,6 @@
             padding-bottom: 30px;
         }
 
-        /* MODAL OVERLAY */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -86,7 +85,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* LOGIN TOGGLE SWITCH */
         .login-toggle-bar {
             display: flex;
             background: var(--input-bg);
@@ -162,7 +160,6 @@
 
         .login-footer-credits b { color: var(--fk-yellow); }
 
-        /* SESSION USER BAR */
         .session-bar {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             border: 1px solid var(--fk-blue);
@@ -216,7 +213,6 @@
             cursor: pointer;
         }
 
-        /* HEADER BAR */
         header {
             background: linear-gradient(135deg, #1e3a8a 0%, #2874f0 100%);
             border-radius: 12px;
@@ -274,7 +270,6 @@
             box-shadow: 0 0 10px var(--accent-green);
         }
 
-        /* FLO CONNECT LINK BAR */
         .system-link-bar {
             background: linear-gradient(90deg, #10b981 0%, #059669 100%);
             border-radius: 8px;
@@ -306,7 +301,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* NAVIGATION TABS */
         .nav-tabs {
             display: flex;
             gap: 4px;
@@ -337,7 +331,6 @@
             box-shadow: 0 4px 10px rgba(40, 116, 240, 0.4);
         }
 
-        /* KPI SUMMARY CARDS */
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -366,7 +359,6 @@
             text-transform: uppercase;
         }
 
-        /* FORM CARD CONTAINER */
         .process-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -425,7 +417,6 @@
             gap: 10px;
         }
 
-        /* CAMERA SCANNER AREA */
         .btn-camera-scan {
             width: 100%;
             background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
@@ -452,7 +443,6 @@
             border: 2px solid var(--accent-cyan);
         }
 
-        /* VARIANCE DISPLAY BOX */
         .variance-banner {
             background: #020617;
             border: 1px solid var(--card-border);
@@ -484,7 +474,6 @@
         .variance-badge.short { background: rgba(239, 68, 68, 0.25); border: 1px solid var(--accent-red); color: var(--accent-red); }
         .variance-badge.balanced { background: rgba(40, 116, 240, 0.25); border: 1px solid var(--fk-blue); color: #60a5fa; }
 
-        /* RADIO REMARKS BOX */
         .radio-group {
             background: var(--input-bg);
             border: 1px solid var(--card-border);
@@ -529,12 +518,54 @@
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
 
-        /* DATA DISPLAY TABLE & TOOLBAR */
+        /* DATE FILTER TOOLBAR */
+        .filter-bar {
+            background: #020617;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--fk-yellow);
+            text-transform: uppercase;
+        }
+
+        .date-input {
+            background: #0f172a;
+            border: 1px solid #1e3a8a;
+            color: #38bdf8;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            outline: none;
+        }
+
+        .btn-clear-filter {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
         .table-header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 14px;
+            margin-top: 8px;
             margin-bottom: 6px;
             flex-wrap: wrap;
             gap: 6px;
@@ -586,7 +617,7 @@
         }
 
         .table-wrapper {
-            max-height: 240px;
+            max-height: 260px;
             overflow-x: auto;
             overflow-y: auto;
             border: 1px solid var(--card-border);
@@ -616,7 +647,6 @@
             border-bottom: 1px solid var(--card-border);
         }
 
-        /* VIBRANT CARD STYLES FOR RULES & GUIDELINES */
         .rules-card-vibrant {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             border: 1px solid var(--card-border);
@@ -680,10 +710,6 @@
             font-weight: bold;
         }
 
-        .posh-rules-red .rules-list-vibrant li::before { color: var(--accent-red); }
-        .guidelines-5s .rules-list-vibrant li::before { color: #c084fc; }
-
-        /* GRID LIST STYLES */
         .grid-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -726,7 +752,6 @@
 </head>
 <body>
 
-    <!-- UNIFIED ENTRY LOGIN MODAL WITH USER/ADMIN TOGGLE -->
     <div id="login-modal" class="modal-overlay">
         <div class="login-card">
             <div class="login-title">FLIPKART <span class="brand-badge">IMT PORTAL</span></div>
@@ -737,12 +762,11 @@
                 <button id="toggle-admin-btn" class="toggle-btn" onclick="switchLoginMode('ADMIN')">🔑 ADMIN LOGIN</button>
             </div>
 
-            <!-- OPERATOR LOGIN FORM -->
             <div id="operator-form-box">
                 <div class="login-form-group">
                     <span class="form-label">CASPER ID <span class="req">* (e.g. ca.3972948)</span></span>
                     <input type="text" id="login-casper" class="input-field" placeholder="ca.3972948" oninput="validateCasperFormat()">
-                    <div id="casper-error" class="error-msg">⚠️ Invalid Casper ID format! Must start with 'ca.' followed by numbers (e.g. ca.3972948).</div>
+                    <div id="casper-error" class="error-msg">⚠️ Invalid Casper ID format! Must start with 'ca.' followed by numbers.</div>
                 </div>
 
                 <div class="login-form-group">
@@ -753,7 +777,6 @@
                 <button class="login-btn" onclick="performOperatorLogin()">LOGIN OPERATOR STATION ➔</button>
             </div>
 
-            <!-- ADMIN LOGIN FORM -->
             <div id="admin-form-box" style="display: none;">
                 <div class="login-form-group">
                     <span class="form-label">ADMIN NAME <span class="req">*</span></span>
@@ -774,7 +797,6 @@
         </div>
     </div>
 
-    <!-- WEBHOOK CLOUD CONFIG MODAL -->
     <div id="webhook-modal" class="modal-overlay" style="display: none;">
         <div class="login-card">
             <div class="login-title">🌐 GOOGLE SHEET CLOUD SYNC</div>
@@ -792,7 +814,6 @@
         </div>
     </div>
 
-    <!-- ESCALATION RED ALERT MODAL -->
     <div id="escalation-modal" class="modal-overlay" style="display: none;">
         <div class="login-card" style="border-color: var(--accent-red); box-shadow: 0 0 35px rgba(239, 68, 68, 0.5);">
             <div class="login-title" style="color: var(--accent-red);">🚨 TEAM LEADER ALERT</div>
@@ -806,7 +827,6 @@
         </div>
     </div>
 
-    <!-- BRAND HEADER -->
     <header>
         <div>
             <div class="brand-title">FLIPKART <span class="brand-badge">IMT</span></div>
@@ -817,17 +837,15 @@
         </div>
     </header>
 
-    <!-- ACTIVE SESSION USER BAR -->
     <div class="session-bar">
         <div class="session-info">
             <span>👤 Active Auditor:</span>
             <span id="active-user-display" class="user-name-glow">Not Logged In</span>
-            <span id="admin-status-tag" class="admin-badge-glow" style="display: none;">ADMIN</span>
+            <span id="admin-status-tag" class="admin-badge-glow" style="display: none;">ADMIN (ALL ENTRIES VIEW)</span>
         </div>
         <button class="btn-switch-user" onclick="logoutSession()">Switch User / Logout</button>
     </div>
 
-    <!-- INTERNAL FLO SYSTEM LINK -->
     <div class="system-link-bar">
         <div class="system-link-text">
             <span>🔗</span> FLO System: 10.24.1.53 (Search Inventory)
@@ -835,7 +853,6 @@
         <a href="http://10.24.1.53/" target="_blank" class="btn-system-connect">OPEN FLO ↗</a>
     </div>
 
-    <!-- NAVIGATION TABS -->
     <div class="nav-tabs">
         <div class="tab-btn active" onclick="switchTab('process')">IMT Audit Portal</div>
         <div class="tab-btn" onclick="switchTab('rules')">Rules & POSH</div>
@@ -843,10 +860,8 @@
         <div class="tab-btn" onclick="switchTab('5s')">5S Data</div>
     </div>
 
-    <!-- MAIN PROCESS TAB -->
     <div id="tab-process">
 
-        <!-- LIVE AUDIT KPI SUMMARY -->
         <div class="kpi-grid">
             <div class="kpi-card">
                 <div id="kpi-total" class="kpi-num" style="color: var(--fk-yellow);">0</div>
@@ -874,11 +889,9 @@
                 <option value="INF">3. Live INF Tracker (IRT)</option>
             </select>
 
-            <!-- CAMERA SCANNER OVERLAY CONTAINER -->
             <button class="btn-camera-scan" onclick="toggleCameraScanner()">📷 Tap To Open Camera Barcode Scanner</button>
             <div id="camera-reader"></div>
 
-            <!-- 1. W2W BIN AUDIT FORM -->
             <div id="form-w2w">
                 <div class="form-title">W2W Bin Audit Status</div>
                 <div class="grid-2">
@@ -912,7 +925,6 @@
                     </div>
                 </div>
 
-                <!-- AUTO + / - QTY VARIANCE DISPLAY -->
                 <div class="variance-banner">
                     <span class="variance-label">Calculated Difference:</span>
                     <span id="w2w-variance-badge" class="variance-badge balanced">0 (Balanced)</span>
@@ -926,7 +938,6 @@
                 </div>
             </div>
 
-            <!-- 2. EXCESS PRODUCTS RCA FORM -->
             <div id="form-rca" style="display: none;">
                 <div class="form-title">Excess Products RCA</div>
                 <div class="grid-2">
@@ -959,7 +970,6 @@
                 </div>
             </div>
 
-            <!-- 3. LIVE INF TRACKER FORM (IRT) -->
             <div id="form-inf" style="display: none;">
                 <div class="form-title">Live INF Tracker (IRT)</div>
                 <div class="grid-2">
@@ -1017,15 +1027,24 @@
 
             <button class="btn-submit" onclick="submitCurrentForm()">Submit Record</button>
 
-            <!-- LIVE SCANNED TABLE HEADER BAR -->
+            <!-- DATE FILTER BAR -->
+            <div class="filter-bar">
+                <span class="filter-label">📅 Date Range Filter:</span>
+                <span style="font-size: 10px; color: #94a3b8;">From</span>
+                <input type="date" id="filter-date-from" class="date-input" onchange="renderTable()">
+                <span style="font-size: 10px; color: #94a3b8;">To</span>
+                <input type="date" id="filter-date-to" class="date-input" onchange="renderTable()">
+                <button class="btn-clear-filter" onclick="clearDateFilter()">Clear Filter</button>
+            </div>
+
             <div class="table-header-bar">
                 <span class="table-title">📊 Entries Logged (<span id="total-count">0</span>)</span>
                 <div class="action-btns">
                     <button class="btn-tool admin-only-feature" onclick="undoLastEntry()">↩️ Undo Last</button>
                     <button class="btn-tool admin-only-feature" onclick="generateShiftReport()">📋 Shift Report</button>
                     <button class="btn-tool admin-only-feature" onclick="openWebhookModal()">🌐 Sheets Webhook</button>
-                    <button class="btn-export" onclick="exportUserCSV()">📥 Export My CSV</button>
-                    <button class="btn-master-export admin-only-feature" onclick="exportMasterCSV()">🔒 Owner Master Export</button>
+                    <button class="btn-export" onclick="exportUserCSV()">📥 Export Filtered CSV</button>
+                    <button class="btn-master-export admin-only-feature" onclick="exportMasterCSV()">🔒 Owner Master CSV</button>
                 </div>
             </div>
 
@@ -1051,7 +1070,6 @@
 
     </div>
 
-    <!-- NEW RULES & GUIDELINES TAB -->
     <div id="tab-rules" style="display: none;">
         <div class="rules-card-vibrant work-rules">
             <div class="rules-title-vibrant">🎯 Work Rules (100% Quality & 0% Mistake Policy)</div>
@@ -1086,7 +1104,6 @@
         </div>
     </div>
 
-    <!-- FULL FORMS TAB DIRECTLY FROM WAREHOUSE BOARD PHOTO -->
     <div id="tab-fullforms" style="display: none;">
         <input type="text" id="fullform-search" class="input-field" placeholder="🔍 Search Terminology..." oninput="filterFullForms()" style="margin-bottom: 10px;">
         <div id="fullform-list-container" class="grid-container">
@@ -1108,7 +1125,6 @@
         </div>
     </div>
 
-    <!-- 5S TAB -->
     <div id="tab-5s" style="display: none;">
         <div class="grid-container">
             <div class="info-card" style="border-left: 4px solid #ef4444;"><div class="info-badge" style="background:#ef4444; color:#fff;">5S (1)</div><div><div class="info-title">Sort</div><div class="info-sub">Clear unneeded items from bins</div></div></div>
@@ -1119,7 +1135,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <div class="footer">
         Flipkart Minutes IMT | <b>Anjaneya HL Warehouse</b> | Created by <b>Nilkantha</b>
     </div>
@@ -1211,7 +1226,7 @@
             }
 
             if (!CASPER_REGEX.test(casper)) {
-                alert("ERROR: Invalid Casper ID format! Must start with 'ca.' followed by numbers (e.g. ca.3972948).");
+                alert("ERROR: Invalid Casper ID format! Must start with 'ca.' followed by numbers.");
                 return;
             }
 
@@ -1284,17 +1299,18 @@
             closeWebhookModal();
         }
 
-    function syncToGoogleSheets(record) {
-    const url = localStorage.getItem("google_sheets_webhook_url");
-    if (!url) return;
+        function syncToGoogleSheets(record) {
+            const url = localStorage.getItem("google_sheets_webhook_url");
+            if (!url) return;
 
-    fetch(url, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(record)
-    }).catch(e => console.log("Sync error:", e));
-}
+            fetch(url, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(record)
+            }).catch(e => console.log("Sync error:", e));
+        }
+
         function toggleCameraScanner() {
             const readerDiv = document.getElementById("camera-reader");
             if (isCameraScanning) {
@@ -1386,6 +1402,43 @@
             return currentSessionUser ? `audit_entries_${currentSessionUser.casper}` : "audit_entries_guest";
         }
 
+        function getDisplayRecords() {
+            let allRecords = [];
+            if (isAdminLoggedIn) {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith("audit_entries_")) {
+                        const entries = JSON.parse(localStorage.getItem(key)) || [];
+                        allRecords = allRecords.concat(entries);
+                    }
+                }
+                allRecords.sort((a, b) => b.id - a.id);
+            } else {
+                const key = getUserStorageKey();
+                allRecords = JSON.parse(localStorage.getItem(key)) || [];
+            }
+
+            const fromDate = document.getElementById("filter-date-from").value;
+            const toDate = document.getElementById("filter-date-to").value;
+
+            if (fromDate || toDate) {
+                allRecords = allRecords.filter(r => {
+                    const recDate = r.date || "";
+                    if (fromDate && recDate < fromDate) return false;
+                    if (toDate && recDate > toDate) return false;
+                    return true;
+                });
+            }
+
+            return allRecords;
+        }
+
+        function clearDateFilter() {
+            document.getElementById("filter-date-from").value = "";
+            document.getElementById("filter-date-to").value = "";
+            renderTable();
+        }
+
         function submitCurrentForm() {
             if (!currentSessionUser) {
                 alert("Please log in first!");
@@ -1427,6 +1480,9 @@
                     casper: `${casper} (${auditer || 'Auditor'})`,
                     location: loc,
                     wid: wid,
+                    invQty: invQty,
+                    phyQty: phyQty,
+                    diffQty: diffFormatted,
                     qty: `Phy:${phyQty} / Inv:${invQty} (Diff:${diffFormatted})`,
                     details: "-",
                     remarks: remarks
@@ -1459,6 +1515,9 @@
                     casper: casper,
                     location: loc,
                     wid: wid,
+                    invQty: "-",
+                    phyQty: qty,
+                    diffQty: `+${qty}`,
                     qty: qty,
                     details: "-",
                     remarks: remarks
@@ -1496,6 +1555,9 @@
                     casper: casper,
                     location: issueLoc,
                     wid: `${wid} (Box:${boxId})`,
+                    invQty: "-",
+                    phyQty: qty,
+                    diffQty: qty,
                     qty: qty,
                     details: `Picker:${pickerId} | ClearedFrom:${clearedLoc}`,
                     remarks: remarks
@@ -1528,16 +1590,15 @@
         }
 
         function renderTable() {
-            const key = getUserStorageKey();
-            const records = JSON.parse(localStorage.getItem(key)) || [];
+            const records = getDisplayRecords();
             const tbody = document.getElementById("scan-table-body");
             document.getElementById("total-count").innerText = records.length;
 
             let shortCount = 0;
             let excessCount = 0;
             records.forEach(r => {
-                if (r.remarks === "Shortage" || r.qty.includes("Diff:-")) shortCount++;
-                if (r.remarks === "Excess" || r.qty.includes("Diff:+")) excessCount++;
+                if (r.remarks === "Shortage" || (r.qty && r.qty.includes("Diff:-"))) shortCount++;
+                if (r.remarks === "Excess" || (r.qty && r.qty.includes("Diff:+"))) excessCount++;
             });
 
             document.getElementById("kpi-total").innerText = records.length;
@@ -1548,7 +1609,7 @@
             document.getElementById("kpi-accuracy").innerText = `${accuracy}%`;
 
             if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color: var(--text-muted);">No entries submitted for your session today.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color: var(--text-muted);">No matching entries found for selected criteria.</td></tr>`;
                 return;
             }
 
@@ -1594,8 +1655,7 @@
 
         function generateShiftReport() {
             if (!isAdminLoggedIn) return;
-            const key = getUserStorageKey();
-            const records = JSON.parse(localStorage.getItem(key)) || [];
+            const records = getDisplayRecords();
             if (records.length === 0) {
                 alert("No audit entries available to generate report!");
                 return;
@@ -1604,8 +1664,8 @@
             let shortCount = 0;
             let excessCount = 0;
             records.forEach(r => {
-                if (r.remarks === "Shortage" || r.qty.includes("Diff:-")) shortCount++;
-                if (r.remarks === "Excess" || r.qty.includes("Diff:+")) excessCount++;
+                if (r.remarks === "Shortage" || (r.qty && r.qty.includes("Diff:-"))) shortCount++;
+                if (r.remarks === "Excess" || (r.qty && r.qty.includes("Diff:+"))) excessCount++;
             });
 
             const accuracy = Math.round(((records.length - (shortCount + excessCount)) / records.length) * 100);
@@ -1629,16 +1689,15 @@
         }
 
         function exportUserCSV() {
-            const key = getUserStorageKey();
-            const records = JSON.parse(localStorage.getItem(key)) || [];
+            const records = getDisplayRecords();
             if (records.length === 0) {
-                alert("No entries to export for your user session.");
+                alert("No entries to export for selected date range.");
                 return;
             }
 
-            let csvContent = "data:text/csv;charset=utf-8,Date,Time,Form Type,Casper / Auditor,Location,WID / Box,Qty (Diff),Details / Picker,Remarks\n";
+            let csvContent = "data:text/csv;charset=utf-8,Date,Time,Form Type,Casper / Auditor,Location,WID / Box,Inventory Qty,Physical Qty,Variance (Diff),Summary Qty,Details / Picker,Remarks\n";
             records.forEach(r => {
-                csvContent += `"${r.date || ''}",${r.time},${r.form},"${r.casper}","${r.location}","${r.wid}","${r.qty}","${r.details}","${r.remarks}"\n`;
+                csvContent += `"${r.date || ''}",${r.time},${r.form},"${r.casper}","${r.location}","${r.wid}","${r.invQty || '-'}","${r.phyQty || '-'}","${r.diffQty || '-'}","${r.qty}","${r.details}","${r.remarks}"\n`;
             });
 
             const userTag = currentSessionUser ? currentSessionUser.casper : "user";
@@ -1653,24 +1712,16 @@
 
         function exportMasterCSV() {
             if (!isAdminLoggedIn) return;
+            const records = getDisplayRecords();
 
-            let allMasterRecords = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith("audit_entries_")) {
-                    const entries = JSON.parse(localStorage.getItem(key)) || [];
-                    allMasterRecords = allMasterRecords.concat(entries);
-                }
-            }
-
-            if (allMasterRecords.length === 0) {
-                alert("No audit records found across any user session on this device.");
+            if (records.length === 0) {
+                alert("No audit records found across any user session for selected date range.");
                 return;
             }
 
-            let csvContent = "data:text/csv;charset=utf-8,Date,Time,Form Type,Casper / Auditor,Location,WID / Box,Qty (Diff),Details / Picker,Remarks\n";
-            allMasterRecords.forEach(r => {
-                csvContent += `"${r.date || ''}",${r.time},${r.form},"${r.casper}","${r.location}","${r.wid}","${r.qty}","${r.details}","${r.remarks}"\n`;
+            let csvContent = "data:text/csv;charset=utf-8,Date,Time,Form Type,Casper / Auditor,Location,WID / Box,Inventory Qty,Physical Qty,Variance (Diff),Summary Qty,Details / Picker,Remarks\n";
+            records.forEach(r => {
+                csvContent += `"${r.date || ''}",${r.time},${r.form},"${r.casper}","${r.location}","${r.wid}","${r.invQty || '-'}","${r.phyQty || '-'}","${r.diffQty || '-'}","${r.qty}","${r.details}","${r.remarks}"\n`;
             });
 
             const encodedUri = encodeURI(csvContent);
